@@ -59,6 +59,6 @@ test:
 
 production:
   <<: *default
-  database: your_database_name_production
+  database: maze_development
   username: postgres
   password: <%= ENV['DATABASE_PASSWORD'] %>
