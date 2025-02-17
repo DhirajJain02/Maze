@@ -63,3 +63,7 @@ production:
 cable:
     <<: *default
     database: maze_cable
+
+queue:
+    <<: *default
+    database: maze_queue
