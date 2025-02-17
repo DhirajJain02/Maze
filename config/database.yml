@@ -61,4 +61,6 @@ production:
   <<: *default
   database: maze_development
   username: postgres
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  password: Akshat@123
+  host: localhost
+  port: 5432
