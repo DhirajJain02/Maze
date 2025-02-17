@@ -11,6 +11,14 @@ Rails.application.routes.draw do
 
   get "/posts", to: "posts#index"
   post "/posts", to: "posts#create"
+  get "/posts/:id", to: "posts#show"
+  delete "/posts/:id", to: "posts#destroy"
+  get "posts/:id/edit", to: "posts#edit"
+  patch "/posts/:id/edit", to: "posts#update", as: "edit_post"
+
+
+  # comments routes
+  post "/posts/:id", to: "comments#create", as: "comments"
 
   # Defines the root path route ("/")
   root "posts#index"
