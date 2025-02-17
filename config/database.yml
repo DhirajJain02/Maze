@@ -58,7 +58,7 @@ test:
 
 production:
   <<: *default
-  database: maze_development
+  database: maze_development_49oe
 
 cable:
     <<: *default
@@ -67,3 +67,7 @@ cable:
 queue:
     <<: *default
     database: maze_queue
+
+cache:
+    <<: *default
+    database: maze_cache
