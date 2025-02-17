@@ -45,18 +45,13 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  username: postgres
-  password: Akshat@123
-  host: localhost
+  username: akki
+  password: sGbnr9Xdwewrgeg7WfJ4wZBBoS6cq8Ok
+  host: dpg-cuphappopnds7394likg-a.oregon-postgres.render.com
 
 development:
   <<: *default
-  database: maze_development
-  username: postgres
-  password: Akshat@123
-  host: localhost
-  port: 5432
-
+  database: maze_development_49oe
 test:
   <<: *default
   database: maze_test
@@ -64,7 +59,7 @@ test:
 production:
   <<: *default
   database: maze_development
-  username: postgres
-  password: Akshat@123
-  host: localhost
-  port: 5432
+
+cable:
+    <<: *default
+    database: maze_cable
