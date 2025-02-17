@@ -44,7 +44,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: 5
   username: postgres
   password: Akshat@123
   host: localhost
@@ -52,6 +52,10 @@ default: &default
 development:
   <<: *default
   database: maze_development
+  username: postgres
+  password: Akshat@123
+  host: localhost
+  port: 5432
 
 test:
   <<: *default
