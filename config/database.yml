@@ -51,7 +51,11 @@ default: &default
 
 development:
   <<: *default
-  database: maze_development_49oe
+  username: postgres
+  password: Akshat@123
+  host: localhost
+  port: 5432
+  database: maze_development
 test:
   <<: *default
   database: maze_test

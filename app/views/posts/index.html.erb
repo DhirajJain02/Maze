@@ -209,7 +209,8 @@
 
             <!-- Hidden Comments (Toggled by "Load More") -->
             <div x-show="expanded" x-transition class="w-full overflow-hidden transition-[height] duration-300">
-              <% post.comments.order(created_at: :desc).offset(1).each do |comment| %>
+              <% post.comments.order(created_at: :desc).offset(1).each do |comment| %> 
+              <%# <% @restcomments[post.id]&.each do |comment| %>
                 <div style="margin-top: 6px;" class="w-full flex flex-col py-1 md:py-3 justify-center bg-gray-100">
                   <div class="flex items-center ">
                     <p class="w-full font-normal text-base md:text-2xl">Piyam Goyal</p>

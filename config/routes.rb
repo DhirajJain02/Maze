@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   get "/posts", to: "posts#index"
+  get "/login", to: "posts#login"
   post "/posts", to: "posts#create"
   get "/posts/:id", to: "posts#show"
   delete "/posts/:id", to: "posts#destroy"

@@ -1,12 +1,15 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy]
 
+  def login
+  end
+
   def index
     # @posts = Post.all.order(created_at: :desc)
-    @posts = Post.includes(:comments).all.order(created_at: :desc)
-    # puts "Posts: #{@posts}"
-    # @comments = @post.comments.order(created_at: :desc)
-    # @comment = Comment.new   # This is for the form in the show
+    @posts = Post.includes(:comments).order(created_at: :desc)
+    # @restcomments = @posts.map do |post|
+    #   [ post.id, post.comments.order(created_at: :desc).offset(1) ]
+    # end.to_h
   end
 
   def create
