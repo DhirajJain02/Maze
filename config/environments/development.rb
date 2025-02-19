@@ -69,6 +69,10 @@ Rails.application.configure do
 
     config.hosts.clear   # this allows all host not for production)
 
+    config.assets.debug = true
+    config.assets.compile = true
+
+
   # config.hosts << "4ec1-180-151-90-35.ngrok-free.app"
   # config.hosts << "4ec1-180-151-90-35.ngrok-free.app"
 
