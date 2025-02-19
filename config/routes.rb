@@ -9,6 +9,19 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
+  # admin routes
+  namespace :admin do
+    get "/posts", to: "posts#index"
+    post "/posts", to: "posts#create"
+    get "/posts/:id", to: "posts#show"
+    delete "/posts/:id", to: "posts#destroy"
+    get "posts/:id/edit", to: "posts#edit"
+    patch "/posts/:id/edit", to: "posts#update", as: "edit_post"
+
+  post "/posts/:id", to: "comments#create", as: "comments"
+  end
+
+  # posts routes
   get "/posts", to: "posts#index"
   post "/posts", to: "posts#create"
   get "/posts/:id", to: "posts#show"
@@ -16,11 +29,11 @@ Rails.application.routes.draw do
   get "posts/:id/edit", to: "posts#edit"
   patch "/posts/:id/edit", to: "posts#update", as: "edit_post"
 
-
   # comments routes
   post "/posts/:id", to: "comments#create", as: "comments"
 
   # Defines the root path route ("/")
-  root "posts#index"
+  root "posts#landing"
   get "/login", to: "posts#login"
+  get "/signin", to: "posts#signin"
 end

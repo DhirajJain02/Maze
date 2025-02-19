@@ -1,12 +1,11 @@
-class PostsController < ApplicationController
+class Admin::PostsController < AdminController
   before_action :set_post, only: %i[show edit update destroy]
 
+  def login
+  end
+
   def index
-    # @posts = Post.all.order(created_at: :desc)
-    @posts = Post.includes(:comments).order(created_at: :desc)
-    # @restcomments = @posts.map do |post|
-    #   [ post.id, post.comments.order(created_at: :desc).offset(1) ]
-    # end.to_h
+    @posts = Post.includes(:comments).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def create
@@ -16,7 +15,7 @@ class PostsController < ApplicationController
       public: params[:public]
     )
     if @post.save
-      redirect_to posts_path, notice: "Post was successfully created."
+      redirect_to admin_posts_path, notice: "Post was successfully created."
     else
       render :index, status: :unprocessable_entity
     end
@@ -36,7 +35,7 @@ class PostsController < ApplicationController
       description: params[:description],
       public: params[:public]
     )
-      redirect_to posts_path, notice: "Post was successfully updated."
+      redirect_to admin_posts_path, notice: "Post was successfully updated."
     else
       render :index, status: :unprocessable_entity
     end
@@ -44,7 +43,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_path, notice: "Post was successfully destroyed."
+    redirect_to admin_posts_path, notice: "Post was successfully destroyed."
   end
 
   private

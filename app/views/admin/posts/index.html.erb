@@ -23,7 +23,7 @@
   <%# <p><%= notice ></p> %>
 
   <main class="flex flex-col gap-4 bg-gray-200 rounded-2xl px-2 py-4 md:px-8 md:py-8">
-    <form action="<%= posts_path %>" method="post" class="flex flex-col items-center justify-center py-4 px-2 md:px-8 md:py-8 bg-white rounded-2xl">
+    <form action="<%= admin_posts_path %>" method="post" class="flex flex-col items-center justify-center py-4 px-2 md:px-8 md:py-8 bg-white rounded-2xl">
       <div class="flex flex-col gap-y-5 w-full px-2">
         <div>
           <label for="title" class="block text-base font-medium text-gray-900">Title</label>
@@ -117,7 +117,7 @@
                   <%= link_to "Show", "posts/#{post.id}", class: "block px-4 py-2 text-sm md:text-lg text-gray-700 font-semibold hover:text-indigo-800" %>
                   <%= link_to "Edit", "posts/#{post.id}/edit", class:"block px-4 py-2 text-sm md:text-lg text-gray-700 font-semibold hover:text-indigo-800"%>
                   <%#= link_to "Delete", postss_path(post), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "block px-4 py-2 text-sm md:text-lg text-gray-700 font-semibold hover:text-indigo-800"%>
-                  <%= link_to "Delete", "posts/#{post.id}", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "block px-4 py-2 text-sm md:text-lg text-gray-700 font-semibold hover:text-indigo-800" %>
+                  <%= link_to "Delete", "admin/posts/#{post.id}", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: "block px-4 py-2 text-sm md:text-lg text-gray-700 font-semibold hover:text-indigo-800" %>
                 </div>
               </div>
             </div>
@@ -253,6 +253,7 @@
       </div>
     <% end %>
   </main>
+
 
 </body>
 </html>
