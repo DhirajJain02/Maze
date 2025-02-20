@@ -1,32 +1,32 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta >
-  <title>Document</title>
-</head>
-<body class="">
-  <main class="w-screen h-screen bg-cover bg-center px-2" style="background-image: url(<%= asset_path('loginbg.png') %>);">
-    <nav class="flex justify-center w-full md:py-2" >
-      <div class="flex items-center gap-4 p-4 w-full md:px-6">
-        <img src="<%= asset_path('loginicon.svg') %>" class="w-10 md:w-12">
-        <p class="text-3xl md:text-4xl font-serif font-semibold text-white">Maze</p>
+  <!doctype html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta >
+    <title>Document</title>
+  </head>
+  <body class="">
+    <main class="w-screen h-screen bg-cover bg-center px-2" style="background-image: url(<%= asset_path('loginbg.png') %>);">
+      <nav class="flex justify-center w-full md:py-2" >
+        <div class="flex items-center gap-4 p-4 w-full md:px-6">
+          <img src="<%= asset_path('loginicon.svg') %>" class="w-10 md:w-12">
+          <p class="text-3xl md:text-4xl font-serif font-semibold text-white">Maze</p>
+        </div>
+      </nav>
+      <hr class="h-[1px] bg-gradient-to-r from-[#377DFF] to-white border-0">  
+      <div class="flex flex-col gap-7 md:gap-10 items-center justify-center h-[80%] text-white">
+        <h1 class=" text-4xl md:text-8xl md:px-28 text-center font-bold">Social media shared today, tomorrow or by location</h1>
+        <p class="text-lg md:text-2xl">Discover with Maze</p>
+        <div class="flex items-center gap-4">
+          <%= link_to "Create Account", "/signin" , class: "bg-indigo-600 hover:bg-indigo-700 focus:border-none text-white p-3 md:px-8 rounded-lg text-lg md:text-xl font-medium hover:cursor-pointer" %>
+          <p>or</p>
+          <%= link_to "Login", "/login" , class: "bg-gray-50 hover:bg-[#EAF4FF] text-indigo-600 p-3 md:px-8 rounded-lg text-lg md:text-xl font-medium hover:cursor-pointer" %>
+        </div>
       </div>
-    </nav>
-    <hr class="h-[1px] bg-gradient-to-r from-[#377DFF] to-white border-0">  
-    <div class="flex flex-col gap-7 md:gap-10 items-center justify-center h-[90%] text-white">
-      <h1 class=" text-4xl md:text-9xl text-center font-bold">Social media shared today, tomorrow or by location</h1>
-      <p class="text-lg md:text-2xl">Discover with Maze</p>
-      <div class="flex items-center gap-4">
-        <button class="bg-indigo-600 hover:bg-indigo-700 focus:border-none text-white p-3 md:px-8 rounded-lg text-lg md:text-xl font-medium hover:cursor-pointer">Create Account</button>
-        <p>or</p>
-        <button class="bg-gray-50 hover:bg-[#EAF4FF] text-indigo-600 p-3 md:px-8 rounded-lg text-lg md:text-xl font-medium hover:cursor-pointer">Login</button>
-      </div>
-    </div>
 
 
-  </main>
-  
-</body>
-</html>
+    </main>
+    
+  </body>
+  </html>
