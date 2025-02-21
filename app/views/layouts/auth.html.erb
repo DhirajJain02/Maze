@@ -30,22 +30,22 @@
       </button>
       </div>
       <script>
-        const popupElement = document.getElementById("popup");
+        var popupElement = document.getElementById("popup");
         if (popupElement) {
           setTimeout(() => {
             popupElement.style.display = "none";
-          }, 1000);
+          }, 2000);
         }
     </script>
     <% end %>
     <%= yield %>
 
-    <script>
+    <%# <script>
       document.addEventListener("DOMContentLoaded", function () {
         let popup = document.getElementById("popup");
         let popupText = document.getElementById("popup-text").textContent.trim();
         popup.classList.add("hidden");
       });
-    </script>
+    </script> %>
   </body>
 </html>

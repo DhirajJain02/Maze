@@ -25,14 +25,14 @@
   <main class="flex flex-col gap-4 bg-gray-200 rounded-2xl px-2 py-4 md:px-8 md:py-8">
     <form action="<%= posts_path %>" method="post" class="flex flex-col items-center justify-center py-4 px-2 md:px-8 md:py-8 bg-white rounded-2xl">
       <div class="flex flex-col gap-y-5 w-full px-2">
-        <div>
+        <%# <div>
           <label for="title" class="block text-base font-medium text-gray-900">Title</label>
           <div class="mt-2">
             <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
               <input type="text" name="title" id="title" required class="shrink-0 block min-w-0 grow py-1.5 px-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6 md:text-lg" placeholder="Whats happening...?">
             </div>
           </div>
-        </div>
+        </div> %>
 
         <div>
           <label for="description" class="block text-base font-medium text-gray-900">Description</label>
@@ -83,7 +83,7 @@
       <div class="flex flex-col items-center justify-center py-4 px-4 md:px-8 md:py-8 bg-white rounded-2xl">
         <div class="w-full flex justify-between items-center gap-4">
           <div>
-            <h1 class="w-full font-medium text-lg md:text-2xl"><%= post.title %></h1>
+            <h1 class="w-full font-medium text-lg md:text-2xl"><%= "#{post.user.first_name} #{post.user.last_name}" %></h1>
           </div>
           <div class="flex gap-3">
             <div class="relative inline-block gap-1" x-data="{ open: false }">
@@ -143,7 +143,7 @@
         <div class="w-full text-gray-400 pb-3">
           <span class="text-sm md:text-base">221 Likes</span>
           <span class="text-black px-1">•</span>
-          <span class="text-sm md:text-base">3 Comments</span>
+          <span class="text-sm md:text-base"><%= post.comments.count %> Comments</span>
         </div>
 
         <hr class="w-full border-gray-300">
