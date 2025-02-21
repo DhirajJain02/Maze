@@ -7,21 +7,99 @@
     <title>Document</title>
   </head>
   <body class="">
-    <main class="w-screen h-screen bg-cover bg-center px-2" style="background-image: url(<%= asset_path('loginbg.png') %>);">
+    <main class="w-screen h-screen flex flex-col md:items-center bg-cover bg-center px-2" style="background-image: url(<%= asset_path('loginbg.png') %>);">
       <nav class="flex justify-center w-full md:py-2" >
-        <div class="flex items-center gap-4 p-4 w-full md:px-6">
-          <img src="<%= asset_path('loginicon.svg') %>" class="w-10 md:w-12">
-          <p class="text-3xl md:text-4xl font-serif font-semibold text-white">Maze</p>
+        <div class="flex items-center gap-4 p-3 w-full md:px-6">
+          <a class="flex items-center gap-4 cursor-pointer" href="/">
+            <img src="<%= asset_path('loginicon.svg') %>" class="w-10 md:w-12">
+            <p class="text-3xl md:text-4xl font-serif font-semibold text-white">Maze</p>
+          </a>
         </div>
       </nav>
       <hr class="h-[1px] bg-gradient-to-r from-[#377DFF] to-white border-0">  
-      <div class="flex flex-col gap-7 md:gap-10 items-center justify-center h-[80%] text-white">
-        <h1 class=" text-4xl md:text-8xl md:px-28 text-center font-bold">Social media shared today, tomorrow or by location</h1>
-        <p class="text-lg md:text-2xl">Discover with Maze</p>
-        <div class="flex items-center gap-4">
-          <%= link_to "Create Account", "/signin" , class: "bg-indigo-600 hover:bg-indigo-700 focus:border-none text-white p-3 md:px-8 rounded-lg text-lg md:text-xl font-medium hover:cursor-pointer" %>
-          <p>or</p>
-          <%= link_to "Login", "/login" , class: "bg-gray-50 hover:bg-[#EAF4FF] text-indigo-600 p-3 md:px-8 rounded-lg text-lg md:text-xl font-medium hover:cursor-pointer" %>
+      <div class="flex py-3 px-2 md:w-[60%] md:h-[80%] justify-center items-center text-white">
+        <div class="flex flex-col w-full md:gap-2 p-3 md:py-14 md:px-20 rounded-2xl justify-center backdrop-blur-md bg-white/15  ">
+          <h1 class="text-2xl md:text-4xl font-medium">Create Account</h1>
+          <p class="text-sm font-light md:text-base">For business, brand or celebrity.</p>
+          <form action="<%=  %>" method="post" class="flex flex-col justify-center py-4">
+            <div class="flex flex-col gap-y-2 md:gap-y-6">
+              <div class="flex flex-col md:flex-row gap-y-2 md:justify-between">
+                <div class="md:w-[45%]">
+                  <label for="title" class="block text-sm md:text-base font-light">First Name</label>
+                  <div class="mt-2">
+                    <div class="flex items-center rounded-sm bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-[#377DFF]">
+                      <input type="text" name="title" id="title" required class="shrink-0 block min-w-0 grow py-1.5 px-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6 md:text-lg" placeholder="Alex">
+                    </div>
+                  </div>
+                </div>
+                <div class="md:w-[45%]">
+                  <label for="title" class="block text-sm md:text-base font-light">Last Name</label>
+                  <div class="mt-2">
+                    <div class="flex items-center rounded-sm bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-[#377DFF]">
+                      <input type="text" name="title" id="title" required class="shrink-0 block min-w-0 grow py-1.5 px-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6 md:text-lg" placeholder="Gill">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-col md:flex-row gap-y-2 md:justify-between">
+                <div class="md:w-[45%]">
+                  <label for="title" class="block text-sm md:text-base font-light">Email</label>
+                  <div class="mt-2">
+                    <div class="flex items-center rounded-sm bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-[#377DFF]">
+                      <input type="email" name="title" id="title" required class="shrink-0 block min-w-0 grow py-1.5 px-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6 md:text-lg" placeholder="Alex@gmail.com">
+                    </div>
+                  </div>
+                </div>
+                <div class="md:w-[45%]">
+                  <label for="title" class="block text-sm md:text-base font-light">Phone number</label>
+                  <div class="mt-2">
+                    <div class="flex items-center rounded-sm bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-[#377DFF]">
+                      <input type="text" name="title" id="title" required class="shrink-0 block min-w-0 grow py-1.5 px-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6 md:text-lg" placeholder="9876543210">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-col md:flex-row gap-y-2 md:justify-between">
+                <div class="md:w-[45%]">
+                  <label for="title" class="block text-sm md:text-base font-light">Password</label>
+                  <div class="mt-2">
+                    <div class="flex items-center rounded-sm bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-[#377DFF]">
+                      <input type="password" name="title" id="title" required class="shrink-0 block min-w-0 grow py-1.5 px-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6 md:text-lg">
+                    </div>
+                  </div>
+                </div>
+                <div class="md:w-[45%]">
+                  <label for="title" class="block text-sm md:text-base font-light">Confirm Password</label>
+                  <div class="mt-2">
+                    <div class="flex items-center rounded-sm bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-[#377DFF]">
+                      <input type="Password" name="title" id="title" required class="shrink-0 block min-w-0 grow py-1.5 px-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6 md:text-lg">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex flex-col gap-1">
+                  <label for="" class="flex items-center gap-1 md:gap-2 cursor-pointer">
+                    <input type="radio" name="" value=true class="" checked>
+                    <span class="text-xs font-light md:text-base">Remeber me</span>
+                  </label>
+
+                  <label for="" class="flex items-center gap-1 md:gap-2 cursor-pointer">
+                    <input type="radio" name="" value=false class="">
+                    <span class="text-xs font-light md:text-base">I agree to all the Terms and Privacy policy </span>
+                  </label>
+                </div>
+              </div>
+              <div class="md:text-right">
+                <button class="w-full md:w-[45%] bg-[#377DFF] hover:bg-[#2b66d2] text-white py-2 md:px-8 rounded-sm text-base md:text-xl font-medium hover:cursor-pointer">Login</button>
+              </div>
+            </div>
+          </form>
+        <p class="text-sm md:text-base font-light text-right">Already have an account? <%= link_to "Log in", "/login", class:"text-[#377DFF] font-medium"%></p>
+          
         </div>
       </div>
 

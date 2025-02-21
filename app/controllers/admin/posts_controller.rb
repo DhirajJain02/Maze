@@ -5,7 +5,7 @@ class Admin::PostsController < AdminController
   end
 
   def index
-    @posts = Post.includes(:comments).order(created_at: :desc).page(params[:page]).per(10)
+    @posts = Post.includes(:comments).order(created_at: :desc)# .page(params[:page]).per(10)
   end
 
   def create
