@@ -38,7 +38,5 @@ Rails.application.routes.draw do
   post "/posts/:id", to: "comments#create", as: "comments"
 
   # Defines the root path route ("/")
-  root "posts#landing"
-  get "/login", to: "posts#login"
-  get "/signin", to: "posts#signin"
+  root "home#landing"
 end

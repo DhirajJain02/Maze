@@ -1,9 +1,6 @@
 class Admin::PostsController < AdminController
   before_action :set_post, only: %i[show edit update destroy]
 
-  def login
-  end
-
   def index
     @posts = Post.includes(:comments).order(created_at: :desc)# .page(params[:page]).per(10)
   end
