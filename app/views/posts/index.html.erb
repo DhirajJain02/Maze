@@ -187,7 +187,7 @@
             <% first_comment = post.comments.last %>
             <!-- First Comment Always Visible -->
             <div class="flex items-center">
-              <p class="w-full font-normal text-base md:text-2xl">Piyam Goyal</p>
+              <p class="w-full font-normal text-base md:text-2xl"><%= "#{first_comment.user.first_name} #{first_comment.user.last_name}" %></p>
               <div class="flex items-center gap-1">
                 <div x-data="{ liked: false }" class="flex">
                   <button type="button"
@@ -213,7 +213,7 @@
               <%# <% @restcomments[post.id]&.each do |comment| %>
                 <div style="margin-top: 6px;" class="w-full flex flex-col py-1 md:py-3 justify-center bg-gray-100">
                   <div class="flex items-center ">
-                    <p class="w-full font-normal text-base md:text-2xl">Piyam Goyal</p>
+                    <p class="w-full font-normal text-base md:text-2xl"><%= "#{comment.user.first_name} #{comment.user.last_name}" %></p>
                     <div class="flex items-center gap-2">
                       <div x-data="{ liked: false }" class="flex">
                         <button type="button"

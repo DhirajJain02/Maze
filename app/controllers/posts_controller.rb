@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   def index
     # @posts = Post.all.order(created_at: :desc)
     @posts = Post.includes(:comments, :user).order(created_at: :desc)
-    @user = current_user
+    # @user = current_user
     # @restcomments = @posts.map do |post|
     #   [ post.id, post.comments.order(created_at: :desc).offset(1) ]
     # end.to_h
@@ -17,7 +17,6 @@ class PostsController < ApplicationController
       description: params[:description],
       public: params[:public]
     )
-    puts
     if @post.save
       redirect_to posts_path, notice: "Post was successfully created."
     else
@@ -52,10 +51,6 @@ class PostsController < ApplicationController
   end
 
   private
-
-  def post_params
-    params.require(:post).permit(:title, :description, :public)
-  end
 
   def set_post
     @post = Post.find(params[:id])
