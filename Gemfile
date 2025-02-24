@@ -70,3 +70,4 @@ gem "tailwindcss-rails", "~> 4.0"
 gem "kaminari"
 
 gem "devise", "~> 4.9"
+gem "rolify"

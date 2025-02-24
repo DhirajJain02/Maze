@@ -23,7 +23,10 @@ Rails.application.routes.draw do
     get "posts/:id/edit", to: "posts#edit"
     patch "/posts/:id/edit", to: "posts#update", as: "edit_post"
 
-  post "/posts/:id", to: "comments#create", as: "comments"
+    # post "/posts/:id", to: "comments#create", as: "comments"
+  end
+  scope :admin do
+    post "/posts/:id", to: "comments#create", as: "comments"
   end
 
   # posts routes
@@ -35,7 +38,7 @@ Rails.application.routes.draw do
   patch "/posts/:id/edit", to: "posts#update", as: "edit_post"
 
   # comments routes
-  post "/posts/:id", to: "comments#create", as: "comments"
+  post "/posts/:id", to: "comments#create"
 
   # Defines the root path route ("/")
   root "home#landing"

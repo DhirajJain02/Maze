@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_post, only: %i[show edit update destroy]
 
   def index
@@ -20,8 +21,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to posts_path, notice: "Post was successfully created."
     else
-      # render :index, status: :unprocessable_entity
-      render json: { errors: @post.errors.full_messages }, status: :unprocessable_entity
+      render :index, status: :unprocessable_entity
     end
   end
 
@@ -35,7 +35,6 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(
-      # title: params[:title],
       description: params[:description],
       public: params[:public]
     )

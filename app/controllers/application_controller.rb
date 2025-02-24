@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
   protected
 
   def after_sign_in_path_for(resource)
-    posts_path
+    if resource.admin?
+      admin_posts_path   # redirect to admin view
+    else
+      posts_path    # redirect to user view
+    end
   end
 end

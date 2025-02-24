@@ -1,4 +1,6 @@
 class Admin::PostsController < AdminController
+  before_action :authenticate_user!
+  before_action :authorize_admin
   before_action :set_post, only: %i[show edit update destroy]
 
   def index
@@ -6,8 +8,9 @@ class Admin::PostsController < AdminController
   end
 
   def create
+    @user = current_user
     @post = Post.new(
-      title: params[:title],
+      user_id: @user.id,
       description: params[:description],
       public: params[:public]
     )
@@ -28,7 +31,6 @@ class Admin::PostsController < AdminController
 
   def update
     if @post.update(
-      title: params[:title],
       description: params[:description],
       public: params[:public]
     )
@@ -45,8 +47,8 @@ class Admin::PostsController < AdminController
 
   private
 
-  def post_params
-    params.require(:post).permit(:title, :description, :public)
+  def authorize_admin
+    redirect_to root_path, notice: "Not authorized to enter!!!" unless current_user.admin?
   end
 
   def set_post

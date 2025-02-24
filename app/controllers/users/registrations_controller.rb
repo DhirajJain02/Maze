@@ -4,6 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   layout "auth"
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
+  after_action :assign_default_role, only: [ :create ]
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   # GET /resource/sign_up
@@ -41,6 +42,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [ :first_name, :last_name, :phone_number ])
     devise_parameter_sanitizer.permit(:account_update, keys: [ :first_name, :last_name, :phone_number ])
+  end
+
+  def assign_default_role
+    resource.add_role(:user) if resource.persisted?
   end
 
 
