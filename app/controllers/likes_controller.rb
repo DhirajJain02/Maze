@@ -5,6 +5,10 @@ class LikesController < ApplicationController
     likeable = find_likeable
     likeable.likes.create(user: current_user)
 
+    # respond_to do |format|
+    #   format.html { redirect_back fallback_location: root_path, notice: "Liked" }
+    #   format.turbo_stream
+    # end
     redirect_to request.referer, notice: "Liked"
   end
 
@@ -12,6 +16,10 @@ class LikesController < ApplicationController
     like = Like.find(params[:id])
     like.destroy if like.user == current_user
 
+    # respond_to do |format|
+    #   format.html { redirect_back fallback_location: root_path, notice: "Unliked" }
+    #   format.turbo_stream
+    # end
     redirect_to request.referer, notice: "Unliked"
   end
 
