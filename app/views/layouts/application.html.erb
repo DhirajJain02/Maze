@@ -29,8 +29,8 @@
   <body>
     <%# <main class="container mx-auto mt-28 px-5 flex"> %>
       <%# <div class="fixed top-5 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white px-6 py-3 rounded-lg shadow-lg">
-  This is a top pop-up!
-</div> %>
+      This is a top pop-up!
+    </div> %>
 
     <% if notice %>
       <div id="popup" class="fixed top-5 right-5 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg flex gap-x-4 items-center">
@@ -68,19 +68,19 @@
             <%= link_to posts_path do%>
               <div class="flex items-center gap-4 py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"> 
                 <img src="<%= asset_path('feed-light.svg') %>" class="w-6 md:w-8">
-                <p class="block text-left text-xl font-medium">Feed</p>
+                <p class="block text-left text-lg md:text-xl font-medium">Feed</p>
               </div>
             <% end %>
             <%= link_to posts_path do%>
               <div class="flex items-center gap-4 py-2 px-3 rounded-xl text-[#606165] hover:bg-gray-200 cursor-pointer"> 
-                <img src="<%= asset_path('profile.svg') %>" class="w-6 md:w-6">
-                <p class="block text-left text-xl font-medium">Profile</p>
+                <img src="<%= asset_path('profile.svg') %>" class="w-5 md:w-6">
+                <p class="block text-left text-lg md:text-xl font-medium">Profile</p>
               </div>
             <% end %>
             <%= link_to "/users/sign_out", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do%>
               <div class="flex items-center gap-4 py-2 px-3 rounded-xl text-red-400 hover:bg-gray-200 cursor-pointer"> 
-                <img src="<%= asset_path('logout.svg') %>" class="w-6 md:w-6">
-                <p class="block text-left text-xl font-medium">Logout</p>
+                <img src="<%= asset_path('logout.svg') %>" class="w-5 md:w-6">
+                <p class="block text-left text-lg md:text-xl font-medium">Logout</p>
               </div>
             <% end %>
           </div>
