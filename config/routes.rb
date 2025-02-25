@@ -40,6 +40,9 @@ Rails.application.routes.draw do
   # comments routes
   post "/posts/:id", to: "comments#create"
 
+  # likes routes
+  resources :likes, only: %i[create destroy]
+
   # Defines the root path route ("/")
   root "home#landing"
 end

@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
   def index
     # @posts = Post.all.order(created_at: :desc)
-    @posts = Post.includes(:comments, :user).order(created_at: :desc)
+    @posts = Post.includes(:comments, :user, :likes).order(created_at: :desc)
     # @user = current_user
     # @restcomments = @posts.map do |post|
     #   [ post.id, post.comments.order(created_at: :desc).offset(1) ]

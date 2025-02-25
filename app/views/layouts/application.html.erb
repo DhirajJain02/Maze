@@ -33,11 +33,11 @@
     </div> %>
 
     <% if notice %>
-      <div id="popup" class="fixed top-5 right-5 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg flex gap-x-4 items-center">
-      <span id="popup-text"><%= notice %></span>
-      <button onclick="document.getElementById('popup').classList.add('hidden');" class="ml-4 text-white text-3xl rounded">
-        &times;
-      </button>
+      <div id="popup" class="fixed top-5 right-5 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg flex gap-x-4 items-center z-50">
+        <span id="popup-text"><%= notice %></span>
+        <button onclick="document.getElementById('popup').classList.add('hidden');" class="ml-4 text-white text-3xl rounded">
+          &times;
+        </button>
       </div>
       <script>
         var popupElement = document.getElementById("popup");
