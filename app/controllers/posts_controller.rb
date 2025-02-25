@@ -28,6 +28,7 @@ class PostsController < ApplicationController
   def show
     @comments = @post.comments.order(created_at: :desc)
     @comment = Comment.new   # This is for the form in the show
+    @likes = @post.likes
   end
 
   def edit

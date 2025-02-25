@@ -1,14 +1,6 @@
 <main class="flex flex-col gap-4 bg-gray-200 rounded-2xl px-2 py-4 md:px-8 md:py-8">
   <form action="<%= posts_path %>" method="post" class="flex flex-col items-center justify-center py-4 px-2 md:px-8 md:py-8 bg-white rounded-2xl">
     <div class="flex flex-col gap-y-5 w-full px-2">
-      <%# <div>
-        <label for="title" class="block text-base font-medium text-gray-900">Title</label>
-        <div class="mt-2">
-          <div class="flex items-center rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-            <input type="text" name="title" id="title" required class="shrink-0 block min-w-0 grow py-1.5 px-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6 md:text-lg" placeholder="Whats happening...?">
-          </div>
-        </div>
-      </div> %>
 
       <div>
         <label for="description" class="block text-base font-medium text-gray-900">Description</label>
@@ -141,8 +133,6 @@
               <p class="text-sm md:text-lg">Like</p>
             <% end %>
           <% end %>
-        
-          <%# <p class="text-sm md:text-lg">Like</p> %>
         </div>
         <div class="flex items-center gap-2 py-4">
           <div class="flex text-neutral-600">
@@ -171,16 +161,6 @@
           <div class="flex items-center">
             <p class="w-full font-normal text-base md:text-2xl"><%= "#{first_comment.user.first_name} #{first_comment.user.last_name}" %></p>
             <div class="flex items-center gap-1">
-              <%# <div x-data="{ liked: false }" class="flex">
-                <button type="button"
-                  @click="liked = !liked"
-                  :class="liked ? 'text-red-500' : 'text-gray-300'"
-                  class="size-5 inline-flex justify-center items-center text-2xl rounded-full hover:text-red-500 text-neutral-600 cursor-pointer">
-                  <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"></path>
-                  </svg>
-                </button>
-              </div> %>
 
               <% if (like = first_comment.likes.find_by(user: current_user)) %>
                 <%= button_to like_path(like), method: :delete, class: "size-5 flex justify-center items-center gap-x-2 text-2xl rounded-full text-red-500 hover:text-neutral-600 cursor-pointer" do %>
@@ -212,16 +192,6 @@
                 <div class="flex items-center ">
                   <p class="w-full font-normal text-base md:text-2xl"><%= "#{comment.user.first_name} #{comment.user.last_name}" %></p>
                   <div class="flex items-center gap-1">
-                    <%# <div x-data="{ liked: false }" class="flex">
-                      <button type="button"
-                        @click="liked = !liked"
-                        :class="liked ? 'text-red-500' : 'text-gray-300'"
-                        class="size-5 inline-flex justify-center items-center text-2xl rounded-full hover:text-red-500 text-neutral-600 cursor-pointer">
-                        <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                          <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"></path>
-                        </svg>
-                      </button>
-                    </div> %>
 
                     <% if (like = comment.likes.find_by(user: current_user)) %>
                       <%= button_to like_path(like), method: :delete, class: "size-5 flex justify-center items-center gap-x-2 text-2xl rounded-full text-red-500 hover:text-neutral-600 cursor-pointer" do %>

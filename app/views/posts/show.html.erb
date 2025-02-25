@@ -62,26 +62,30 @@
     </div>
 
     <div class="w-full text-gray-400 pb-3">
-      <span class="text-sm md:text-base">221 Likes</span>
+      <span class="text-sm md:text-base"><%= @likes.count %> Likes</span>
       <span class="text-black px-1">•</span>
       <span class="text-sm md:text-base"><%= @comments.count %> Comments</span>
     </div>
 
     <hr class="w-full border-gray-300">
 
-    <div class="w-full flex items-center gap-8">
-      <div class="flex items-center gap-2 py-4">
-        <div x-data="{ liked: false }" class="flex">
-          <button type="button"
-            @click="liked = !liked"
-            :class="liked ? 'text-red-500' : 'text-gray-300'"
-            class="size-5 inline-flex justify-center items-center text-2xl rounded-full hover:text-red-500 text-neutral-600 cursor-pointer">
+    <div class="w-full pl-4 md:pl-5 flex items-center gap-10">
+      <div class="flex items-center py-4">
+        <% if (like = @likes.find_by(user: current_user)) %>
+          <%= button_to like_path(like), method: :delete, class: "size-5 flex justify-center items-center gap-x-2 text-2xl rounded-full text-red-500 hover:text-neutral-600 cursor-pointer" do %>
             <svg class="shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"></path>
             </svg>
-          </button>
-        </div>
-        <p class="text-sm md:text-lg">Like</p>
+            <p class="text-sm md:text-lg">Like</p>
+          <% end %>
+        <% else %>
+          <%= button_to likes_path(post_id: @post.id), method: :post, class: "size-5 flex justify-center items-center gap-x-2 stext-2xl rounded-full text-neutral-600 hover:text-red-500 cursor-pointer" do %>
+            <svg class="shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"></path>
+            </svg>
+            <p class="text-sm md:text-lg">Like</p>
+          <% end %>
+        <% end %>
       </div>
       <div class="flex items-center gap-2 py-4">
         <div class="flex text-neutral-600">
@@ -112,17 +116,20 @@
         <div class="flex items-center">
           <p class="w-full font-normal text-base md:text-2xl"><%= "#{comment.user.first_name} #{comment.user.last_name}" %></p>
           <div class="flex items-center gap-1">
-            <div x-data="{ liked: false }" class="flex">
-              <button type="button"
-                @click="liked = !liked"
-                :class="liked ? 'text-red-500' : 'text-gray-300'"
-                class="size-5 inline-flex justify-center items-center text-2xl rounded-full hover:text-red-500 text-neutral-600 cursor-pointer">
+            <% if (like = comment.likes.find_by(user: current_user)) %>
+              <%= button_to like_path(like), method: :delete, class: "size-5 flex justify-center items-center gap-x-2 text-2xl rounded-full text-red-500 hover:text-neutral-600 cursor-pointer" do %>
                 <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"></path>
                 </svg>
-              </button>
-            </div>
-            <p>2</p>
+              <% end %>
+            <% else %>
+              <%= button_to likes_path(comment_id: comment.id), method: :post, class: "size-5 flex justify-center items-center gap-x-2 stext-2xl rounded-full text-neutral-600 hover:text-red-500 cursor-pointer" do %>
+                <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"></path>
+                </svg>
+              <% end %>
+            <% end %>
+            <p><%= comment.likes.count %></p>
           </div>
         </div>
         <div class="flex items-center justify-between py-1">
