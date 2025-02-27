@@ -70,7 +70,7 @@ cable:
 
 queue:
     <<: *default
-    database: maze_queue
+    database: maze_development_49oe
 
 cache:
     <<: *default
