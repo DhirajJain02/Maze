@@ -5,6 +5,7 @@ class Admin::PostsController < AdminController
 
   def index
     @posts = Post.includes(:comments).order(created_at: :desc)# .page(params[:page]).per(10)
+    @users = User.all
   end
 
   def create
