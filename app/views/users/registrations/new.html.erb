@@ -21,9 +21,13 @@
           <div class="flex flex-col justify-center items-center gap-y-2 md:gap-y-6">
             <div class="flex flex-col justify-center items-center">
               <label for="avatar_upload" class="w-24 md:w-40 flex items-center justify-center cursor-pointer">
-                <%= image_tag @user.avatar.attached? ? url_for(@user.avatar) : "avatar.png",
+                <%# <%= image_tag @user.avatar.attached? ? url_for(@user.avatar) : "avatar.png",
                       id: "avatar_preview", 
                       class: "object-cover rounded-full w-24 md:w-40 h-24 md:h-40" %>
+                <%= image_tag (@user.persisted? && @user.avatar.attached?) ? url_for(@user.avatar) : "avatar.png",
+                  id: "avatar_preview", 
+                  class: "object-cover rounded-full w-24 md:w-40 h-24 md:h-40" %>
+
               </label>
               <%= f.file_field :avatar, id: "avatar_upload", class: "hidden", onchange: "previewAvatar(event);" %>
               <%= f.label :avatar, "Avatar", class: "block text-sm md:text-base font-light text-center" %>

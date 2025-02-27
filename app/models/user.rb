@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   rolify
   has_one_attached :avatar
+  validates :avatar, blob: { content_type: [ "image/png", "image/jpg", "image/jpeg" ] }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_many :posts, dependent: :destroy
