@@ -12,10 +12,23 @@
     <div class="flex flex-col w-full md:gap-2 p-3 md:py-14 md:px-20 rounded-2xl justify-center backdrop-blur-md bg-white/15  ">
       <h1 class="text-2xl md:text-4xl font-medium">Create Account</h1>
       <p class="text-sm font-light md:text-base">For business, brand or celebrity.</p>
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "flex flex-col justify-center py-4" }) do |f| %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "flex flex-col justify-center py-6" }) do |f| %>
         <%= render "users/shared/error_messages", resource: resource %>
 
         <div class="flex flex-col gap-y-2 md:gap-y-6">
+          
+
+          <div class="flex flex-col justify-center items-center gap-y-2 md:gap-y-6">
+            <div class="flex flex-col justify-center items-center">
+              <label for="avatar_upload" class="w-24 md:w-40 flex items-center justify-center cursor-pointer">
+                <%= image_tag @user.avatar.attached? ? url_for(@user.avatar) : "avatar.png",
+                      id: "avatar_preview", 
+                      class: "object-cover rounded-full w-24 md:w-40 h-24 md:h-40" %>
+              </label>
+              <%= f.file_field :avatar, id: "avatar_upload", class: "hidden", onchange: "previewAvatar(event);" %>
+              <%= f.label :avatar, "Avatar", class: "block text-sm md:text-base font-light text-center" %>
+            </div>
+          </div>
           
           <div class="flex flex-col md:flex-row gap-y-2 md:justify-between">
             <!-- First Name -->

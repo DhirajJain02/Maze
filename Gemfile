@@ -71,3 +71,4 @@ gem "kaminari"
 
 gem "devise", "~> 4.9"
 gem "rolify"
+gem "image_processing", ">= 1.2"
