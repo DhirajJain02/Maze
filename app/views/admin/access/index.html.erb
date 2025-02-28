@@ -1,15 +1,17 @@
-<main class="flex flex-col gap-4 w-full bg-gray-200 rounded-2xl px-2 py-4 md:px-8 md:py-8">
-  <p class="text-2xl md:text-3xl text-center font-semibold text-gray-500">List of Users</p>
+<main class="flex flex-col gap-2 md:gap-4 w-full bg-gray-200 rounded-2xl px-2 py-4 md:px-8 md:py-8">
+  <p class="text-xl md:text-3xl text-center font-semibold text-gray-500">List of Users</p>
   <% @users.each do |user| %>
-    <div class="flex items-center justify-between w-full py-4 px-4 md:px-8 md:py-8 text-center bg-white rounded-2xl">
-      <div class="flex items-center gap-2 md:gap-4 md:w-4/12">  
-        <%= image_tag(user.avatar.present? ? user.avatar : 'avatar.png', class: "w-10 h-10 md:w-12 md:h-12 rounded-xl") %>
-        <% if user.active %>
-          <p class="text-4xl text-[#71BE34]">•</p>
-        <% else %>
-          <p class="text-4xl text-[#F56464]">•</p>
-        <% end %>
-        <p class="text-lg md:text-2xl text-gray-600"><%= user.first_name %> <%= user.last_name %></p>
+    <div class="flex items-center justify-between w-full p-2 md:p-8 text-center bg-white rounded-2xl">
+      <div class="flex items-center gap-2 md:gap-3 md:w-4/12">  
+        <%= image_tag(user.avatar.present? ? user.avatar : 'avatar.png', class: "w-10 h-10 md:w-14 md:h-14 rounded-xl") %>
+        <div class="hidden md:block">  
+          <% if user.active %>
+            <p class="text-4xl text-[#71BE34]">•</p>
+          <% else %>
+            <p class="text-4xl text-[#F56464]">•</p>
+          <% end %>
+        </div>
+        <p class="text-base md:text-2xl text-gray-600"><%= user.first_name %> <%= user.last_name %></p>
       </div>
       <div class="hidden md:flex md:w-2/12">
         <p class="text-lg text-gray-500"><%= user.phone_number %></p>
@@ -19,11 +21,11 @@
       </div>
       <% if user.active %>
         <div class="md:w-2/12 bg-[#F5646426] text-[#F56464] rounded-xl">
-          <%= link_to "Deactivate User", "access_users/#{user.id}", data: {turbo_method: :patch, turbo_confirm: "Are you sure?"}, class: "block px-4 py-2 text-sm md:text-lg font-semibold hover:text-red-600" %>
+          <%= link_to "Deactivate User", "access_users/#{user.id}", data: {turbo_method: :patch, turbo_confirm: "Are you sure?"}, class: "block px-4 py-2 text-xs md:text-lg font-semibold hover:text-red-600" %>
         </div>
       <% else %>
         <div class="md:w-2/12 bg-[#71BE3426] text-[#71BE34] rounded-xl">
-          <%= link_to "Activate User", "access_users/#{user.id}", data: {turbo_method: :patch, turbo_confirm: "Are you sure?"}, class: "block px-4 py-2 text-sm md:text-lg font-semibold hover:text-green-600" %>
+          <%= link_to "Activate User", "access_users/#{user.id}", data: {turbo_method: :patch, turbo_confirm: "Are you sure?"}, class: "block px-4 py-2 text-xs md:text-lg font-semibold hover:text-green-600" %>
         </div>
       <% end %>
       <div class="flex gap-3 items-end">
