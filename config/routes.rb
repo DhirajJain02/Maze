@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     get "/access_users", to: "access#index", as: "access"
     delete "/access_users/:id", to: "access#destroy"
     patch "/access_users/:id", to: "access#edit"
+    get "/add_user", to: "access#new"
+    post "/add_user", to: "access#create"
 
     # post "/posts/:id", to: "comments#create", as: "comments"
   end

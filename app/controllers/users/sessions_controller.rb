@@ -10,9 +10,16 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    user = User.find_by(email: params[:user][:email])
+
+    if user && !user.active?
+      flash[:notice] = "Your account is not active. Please contact support."
+      redirect_to new_user_session_path
+    else
+      super
+    end
+  end
 
   # DELETE /resource/sign_out
   # def destroy

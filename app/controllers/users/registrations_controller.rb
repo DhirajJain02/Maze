@@ -6,11 +6,37 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
   after_action :assign_default_role, only: [ :create ]
   before_action :configure_permitted_parameters, if: :devise_controller?
+  prepend_before_action :require_no_authentication, except: [ :create ]
 
   # GET /resource/sign_up
   # def new
   #   super
   # end
+
+  def create
+    build_resource(sign_up_params)
+
+    if resource.save
+      flash[:notice] = "User created successfully!"
+
+      # Prevent auto-login by NOT calling sign_up(resource_name, resource)
+      if  current_user.present? && current_user.admin?
+        redirect_to after_sign_up_path_for(resource)
+      else
+        sign_in(resource)
+        redirect_to posts_path
+      end
+    else
+      Rails.logger.debug "USER CREATION FAILED: #{resource.errors.full_messages}"
+      flash[:notice] = "User not created successfully!"
+      flash[:alert] = resource.errors.full_messages.join(", ")
+      if  current_user.present? && current_user.admin?
+        redirect_to request.referer
+      else
+        redirect_to posts_path
+      end
+    end
+  end
 
   # POST /resource
 
@@ -46,6 +72,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def assign_default_role
     resource.add_role(:user) if resource.persisted?
+  end
+
+  def after_sign_up_path_for(_resource)
+    admin_access_path
   end
 
 

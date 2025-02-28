@@ -10,6 +10,12 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
+  # def active_for_authentication?
+  #   super && active?
+  # end
+  # def inactive_message
+  #   active? ? super : "Your account is not active. Please contact support."
+  # end
 
   def admin?
     has_role?(:admin)

@@ -7,24 +7,25 @@ class Admin::AccessController < AdminController
     @users = User.all.order(created_at: :desc)
   end
 
+  def new
+    @user = User.new
+    render :new # Explicitly render create.html.erb
+  end
+
   # def create
   #   @user = current_user
-  #   @post = Post.new(
-  #     user_id: @user.id,
-  #     description: params[:description],
-  #     public: params[:public]
+  #   @user = User.new(
+  #     first_name: params[:first_name],
+  #     last_name: params[:last_name],
+  #     email: params[:email],
+  #     password: params[:password]
   #   )
-  #   if @post.save
+  #   if @user.save
   #     redirect_to admin_posts_path, notice: "Post was successfully created."
   #   else
-  #     render :index, status: :unprocessable_entity
+  #     # render :index, status: :unprocessable_entity
+  #     redirect_to admin_access_path, notice: "User successfully updated."
   #   end
-  # end
-
-  # def show
-  #   @comments = @post.comments.order(created_at: :desc)
-  #   @comment = Comment.new   # This is for the form in the show
-  #   @likes = @post.likes
   # end
 
   def edit

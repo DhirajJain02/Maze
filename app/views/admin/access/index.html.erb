@@ -1,5 +1,13 @@
 <main class="flex flex-col gap-2 md:gap-4 w-full bg-gray-200 rounded-2xl px-2 py-4 md:px-8 md:py-8">
-  <p class="text-xl md:text-3xl text-center font-semibold text-gray-500">List of Users</p>
+  <div class="flex justify-between items-center px-2">
+    <p class="text-xl md:text-3xl text-center font-semibold text-gray-500">List of Users</p>
+    <%= link_to admin_add_user_path do %>
+      <div class="flex items-center gap-2 md:gap-4 py-2 px-3 rounded-xl cursor-pointer <%= active_class(admin_access_path) %>"> 
+        <%= image_tag "createuser.svg", class:"w-5 md:w-6" %>
+        <p class="block text-left text-sm md:text-xl font-medium">Create Users</p>
+      </div>
+    <% end %>
+  </div>
   <% @users.each do |user| %>
     <div class="flex items-center justify-between w-full p-2 md:p-8 text-center bg-white rounded-2xl">
       <div class="flex items-center gap-2 md:gap-3 md:w-4/12">  
