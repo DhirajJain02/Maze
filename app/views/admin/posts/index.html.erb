@@ -250,7 +250,7 @@
 
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
-            <%= image_tag(user.avatar.present? ? user.avatar : 'avatar.png', class: "w-10 rounded-xl") %>
+            <%= image_tag(user.avatar.present? ? user.avatar : 'avatar.png', class: "w-10 h-10 rounded-xl") %>
             <p class="text-xl text-gray-500 font-medium"><%= user.first_name %> <%= user.last_name %></p>
           </div>
           <div>
