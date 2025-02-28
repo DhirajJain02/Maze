@@ -1,11 +1,10 @@
 class Admin::AccessController < AdminController
   before_action :authenticate_user!
   before_action :authorize_admin
-  # before_action :set_post, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[edit destroy]
 
   def index
-    # @posts = Post.includes(:comments).order(created_at: :desc)# .page(params[:page]).per(10)
-    @users = User.all
+    @users = User.all.order(created_at: :desc)
   end
 
   # def create
@@ -28,24 +27,17 @@ class Admin::AccessController < AdminController
   #   @likes = @post.likes
   # end
 
-  # def edit
-  # end
+  def edit
+    @user.update(
+      active: !@user.active
+    )
+      redirect_to admin_access_path, notice: "User successfully updated."
+  end
 
-  # def update
-  #   if @post.update(
-  #     description: params[:description],
-  #     public: params[:public]
-  #   )
-  #     redirect_to admin_posts_path, notice: "Post was successfully updated."
-  #   else
-  #     render :index, status: :unprocessable_entity
-  #   end
-  # end
-
-  # def destroy
-  #   @post.destroy
-  #   redirect_to admin_posts_path, notice: "Post was successfully destroyed."
-  # end
+  def destroy
+    @user.destroy
+    redirect_to admin_access_path, notice: "User successfully destroyed."
+  end
 
   private
 
@@ -53,7 +45,7 @@ class Admin::AccessController < AdminController
     redirect_to root_path, notice: "Not authorized to enter!!!" unless current_user.admin?
   end
 
-  # def set_post
-  #   @post = Post.find(params[:id])
-  # end
+  def set_user
+    @user = User.find(params[:id])
+  end
 end

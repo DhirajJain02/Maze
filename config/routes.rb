@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     patch "/posts/:id/edit", to: "posts#update", as: "edit_post"
 
     get "/access_users", to: "access#index", as: "access"
+    delete "/access_users/:id", to: "access#destroy"
+    patch "/access_users/:id", to: "access#edit"
 
     # post "/posts/:id", to: "comments#create", as: "comments"
   end
