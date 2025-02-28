@@ -436,7 +436,7 @@ DEPENDENCIES
   selenium-webdriver
   solid_cable
   solid_cache
-  solid_queue
+  solid_queue (>= 0.2.0)
   stimulus-rails
   tailwindcss-rails (~> 4.0)
   tailwindcss-ruby (~> 4.0)
