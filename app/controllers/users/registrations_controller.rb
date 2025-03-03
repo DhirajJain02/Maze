@@ -4,7 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   layout "auth"
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
-  after_action :assign_default_role, only: [ :create ]
+  # after_action :assign_default_role, only: [ :create ]
   before_action :configure_permitted_parameters, if: :devise_controller?
   prepend_before_action :require_no_authentication, except: [ :create ]
 
@@ -20,9 +20,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
       flash[:notice] = "User created successfully!"
 
       # Prevent auto-login by NOT calling sign_up(resource_name, resource)
+      role_param = params[:user][:role]
       if  current_user.present? && current_user.admin?
+        resource.add_role(role_param)
         redirect_to after_sign_up_path_for(resource)
       else
+        resource.add_role(:user)
         sign_in(resource)
         redirect_to posts_path
       end
@@ -70,9 +73,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:account_update, keys: [ :first_name, :last_name, :phone_number, :avatar ])
   end
 
-  def assign_default_role
-    resource.add_role(:user) if resource.persisted?
-  end
+  # def assign_default_role
+  #   if current_user.present? && current_user.admin?
+  #     resource.add_role(resource.role)
+  #   else
+  #     resource.add_role(:user) if resource.persisted?
+  #   end
+  # end
 
   def after_sign_up_path_for(_resource)
     admin_access_path

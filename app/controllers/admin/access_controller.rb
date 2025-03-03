@@ -9,7 +9,7 @@ class Admin::AccessController < AdminController
 
   def new
     @user = User.new
-    render :new # Explicitly render create.html.erb
+    render :new # Explicitly render new.html.erb
   end
 
   # def create

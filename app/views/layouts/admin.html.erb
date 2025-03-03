@@ -137,6 +137,18 @@
         }
       });
 
+      function previewAvatar(event) {
+        const file = event.target.files[0]; // Get the selected file
+        console.log(file)
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            document.getElementById("avatar_preview").src = e.target.result; // Update image preview
+          };
+          reader.readAsDataURL(file); // Convert file to a readable URL
+        }
+      }
+
     </script>
   </body>
 </html>

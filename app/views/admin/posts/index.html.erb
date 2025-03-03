@@ -242,20 +242,28 @@
       <p class="text-2xl">Users List</p>
     </div>
 
-    <div class="flex flex-col gap-y-3 w-full px-2">
+    <div class="flex flex-col gap-y-4 w-full px-2">
       <% @users.each do |user| %>
 
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
             <%= image_tag(user.avatar.present? ? user.avatar : 'avatar.png', class: "w-10 h-10 rounded-xl") %>
-            <p class="text-xl text-gray-500 font-medium"><%= user.first_name %> <%= user.last_name %></p>
+            <% if user.admin? %>
+              <p class="text-base text-[#377DFF] font-semibold md:text-2xl ">
+                <%= user.first_name %> <%= user.last_name %>
+              </p>
+            <% else %>
+              <p class="text-base md:text-2xl text-gray-600">
+                <%= user.first_name %> <%= user.last_name %>
+              </p>
+            <% end %>
           </div>
           <div>
-          <% if user.active %>
-            <p class="text-4xl text-[#71BE34]">•</p>
-          <% else %>
-            <p class="text-4xl text-[#F56464]">•</p>
-          <% end %>
+            <% if user.active %>
+              <p class="text-4xl text-[#71BE34]">•</p>
+            <% else %>
+              <p class="text-4xl text-[#F56464]">•</p>
+            <% end %>
           </div>
         </div>
 

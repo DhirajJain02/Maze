@@ -2,7 +2,7 @@
   <div class="flex justify-between items-center px-2">
     <p class="text-xl md:text-3xl text-center font-semibold text-gray-500">List of Users</p>
     <%= link_to admin_add_user_path do %>
-      <div class="flex items-center gap-2 md:gap-4 py-2 px-3 rounded-xl cursor-pointer <%= active_class(admin_access_path) %>"> 
+      <div class="flex items-center gap-2 md:gap-4 py-2 px-4 rounded-xl cursor-pointer <%= active_class(admin_access_path) %>"> 
         <%= image_tag "createuser.svg", class:"w-5 md:w-6" %>
         <p class="block text-left text-sm md:text-xl font-medium">Create Users</p>
       </div>
@@ -19,7 +19,15 @@
             <p class="text-4xl text-[#F56464]">•</p>
           <% end %>
         </div>
-        <p class="text-base md:text-2xl text-gray-600"><%= user.first_name %> <%= user.last_name %></p>
+        <% if user.admin? %>
+          <p class="text-base text-[#377DFF] font-semibold md:text-2xl ">
+            <%= user.first_name %> <%= user.last_name %>
+          </p>
+        <% else %>
+          <p class="text-base md:text-2xl text-gray-600">
+            <%= user.first_name %> <%= user.last_name %>
+          </p>
+        <% end %>
       </div>
       <div class="hidden md:flex md:w-2/12">
         <p class="text-lg text-gray-500"><%= user.phone_number %></p>
