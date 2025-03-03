@@ -29,6 +29,11 @@ Rails.application.routes.draw do
     get "/add_user", to: "access#new"
     post "/add_user", to: "access#create"
 
+    get "/reports", to: "reports#index", as: "reports"
+    get "/reports/export_users", to: "reports#export_users"
+    get "/reports/export_active_users", to: "reports#export_active_users"
+    get "/reports/export_posts", to: "reports#export_posts"
+
     # post "/posts/:id", to: "comments#create", as: "comments"
   end
   scope :admin do
