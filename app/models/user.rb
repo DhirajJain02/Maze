@@ -2,6 +2,8 @@ class User < ApplicationRecord
   rolify
   has_one_attached :avatar
   validates :avatar, blob: { content_type: [ "image/png", "image/jpg", "image/jpeg" ] }
+  validate :avatar_type
+  validates :phone_number, presence: true, uniqueness: true, format: { with: /\A\d{10}\z/, message: "must be exactly 10 digits" }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_many :posts, dependent: :destroy
@@ -9,7 +11,7 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :trackable
+  :recoverable, :rememberable, :validatable, :trackable
   # def active_for_authentication?
   #   super && active?
   # end
@@ -23,5 +25,12 @@ class User < ApplicationRecord
 
   def user?
     has_role?(:user)
+  end
+
+  private
+  def avatar_type
+    if avatar.attached? && !avatar.content_type.in?(%w[image/png image/jpg image/jpeg])
+      errors.add(:avatar, "must be a PNG, JPG, or JPEG")
+    end
   end
 end

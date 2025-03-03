@@ -32,12 +32,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       Rails.logger.debug "USER CREATION FAILED: #{resource.errors.full_messages}"
       flash[:notice] = "User not created successfully!"
-      flash[:alert] = resource.errors.full_messages.join(", ")
-      if  current_user.present? && current_user.admin?
+      flash[:alert] = resource.errors.full_messages.join("<br>").html_safe
+        # if  current_user.present? && current_user.admin?
         redirect_to request.referer
-      else
-        redirect_to posts_path
-      end
+      # else
+      # redirect_to new_user_session_path
+      # end
     end
   end
 
