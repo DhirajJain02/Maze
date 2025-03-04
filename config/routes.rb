@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     get "/add_user", to: "access#new"
     post "/add_user", to: "access#create"
     get "/upload_user", to: "access#upload"
+    post "/import", to: "access#import"
 
     get "/reports", to: "reports#index", as: "reports"
     get "/reports/export_users", to: "reports#export_users"

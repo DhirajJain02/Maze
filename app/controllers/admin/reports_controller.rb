@@ -5,16 +5,17 @@ class Admin::ReportsController < AdminController
 
 
   def export_users
-    report = Post.joins(:user)
-    .left_joins(:comments, :likes)
-    .select(
-      "(users.first_name || ' ' || users.last_name) AS full_name,
-      posts.description,
-      STRING_AGG(comments.data, ', ') AS comment_data,
-      COUNT(DISTINCT likes.id) AS like_count"
-    )
-    .group("posts.id, users.first_name, users.last_name, posts.description")
-
+    report = User
+  .left_joins(posts: [ :comments, :likes ])
+  .select(
+    "users.id AS user_id,
+     (users.first_name || ' ' || users.last_name) AS full_name,
+     posts.id AS post_id,
+     posts.description AS description,
+     STRING_AGG(comments.data, ', ') AS comment_data,
+     COUNT(DISTINCT likes.id) AS like_count"
+  )
+  .group("users.id, users.first_name, users.last_name, posts.id, posts.description")
     respond_to do |format|
       format.csv { send_data generate_csv(report), filename: "All_users-#{Date.today}.csv" }
       format.xlsx do
