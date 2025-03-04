@@ -12,22 +12,6 @@ class Admin::AccessController < AdminController
     render :new # Explicitly render new.html.erb
   end
 
-  # def create
-  #   @user = current_user
-  #   @user = User.new(
-  #     first_name: params[:first_name],
-  #     last_name: params[:last_name],
-  #     email: params[:email],
-  #     password: params[:password]
-  #   )
-  #   if @user.save
-  #     redirect_to admin_posts_path, notice: "Post was successfully created."
-  #   else
-  #     # render :index, status: :unprocessable_entity
-  #     redirect_to admin_access_path, notice: "User successfully updated."
-  #   end
-  # end
-
   def edit
     @user.update(
       active: !@user.active

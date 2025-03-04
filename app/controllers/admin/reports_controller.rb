@@ -3,9 +3,6 @@ class Admin::ReportsController < AdminController
   before_action :authenticate_user!
   before_action :authorize_admin
 
-  def index
-    @user = User.all
-  end
 
   def export_users
     report = Post.joins(:user)
