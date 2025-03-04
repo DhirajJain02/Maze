@@ -1,5 +1,5 @@
-<main class="flex flex-col gap-2 md:gap-4 w-full bg-gray-200 rounded-2xl px-2 py-4 md:px-8 md:py-8">
-  <div class="flex justify-between items-center px-2">
+<main class="flex flex-col gap-2 md:gap-4 w-full md:px-8 md:py-8">
+  <div class="flex justify-between items-center rounded-2xl bg-gray-200 p-4 md:px-8 md:py-8">
     <div class="flex flex-col w-full md:gap-10 md:py-8 md:px-36 rounded-2xl justify-center">
       <p class="py-2 text-xl md:text-3xl font-semibold text-gray-500">Add Users</p>
       <%= form_with(model: @user, url: user_registration_path, method: :post, data: { turbo: false }, html: { class: "flex flex-col justify-center" }) do |f| %>

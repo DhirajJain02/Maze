@@ -1,10 +1,10 @@
-<main class="flex flex-col gap-2 md:gap-4 w-full bg-gray-200 rounded-2xl px-4 py-4 md:px-8 md:py-8">
+<main class="flex flex-col gap-8 md:gap-4 w-full bg-gray-200 rounded-2xl px-4 py-4 md:px-8 md:py-8">
   <div class="flex justify-between items-center">
     <p class="text-xl md:text-3xl text-center font-semibold text-gray-500">All Reports</p>
   </div>
 
   <div class="flex flex-col md:flex-row justify-center gap-8">
-    <div class="md:w-[20%] flex flex-col justify-center gap-8 bg-red py-4 text-center bg-white rounded-3xl">
+    <div class="md:w-[20%] flex flex-col justify-center gap-8 bg-red py-12 px-4 text-center bg-white rounded-3xl">
       <div class="flex justify-center">
         <div class="w-20 md:w-24 h-20 md:h-24 flex bg-cover bg-no-repeat justify-center items-center" style="background-image: url(<%= asset_path('bgcircle.svg') %>);">
           <%= image_tag "report-light.svg", class:"w-10 md:w-12" %>
@@ -14,22 +14,24 @@
         <h1 class="text-lg font-bold text-gray-600">All Users</h1>
         <p class="text-sm text-gray-500">Posts, comments and likes counts</p>
       </div>
-<%= form_with url: admin_reports_export_users_path, method: :get, data: { turbo: false }, class: "flex flex-col justify-center" do |f| %>
-  <div class="md:flex flex-col justify-between items-center md:text-right px-4">
-    <div class="md:w-[45%] flex justify-center gap-4 md:gap-2 pt-2 pb-4">
-      <%= f.radio_button :format, "csv", id: "exports_csv", class: "peer/csv hidden", checked: true %>
-      <%= f.label :format, "CSV", for: "exports_csv", class: "role-btn px-6 py-2 rounded-xl md:text-xl text-gray-600 peer-checked/csv:text-[#377DFF] border border-gray-300 peer-checked/csv:border-[#377DFF] peer-checked/csv:font-semibold cursor-pointer transition duration-300" %>
 
-      <%= f.radio_button :format, "xlsx", id: "exports_excel", class: "peer/excel hidden" %>
-      <%= f.label :format, "Excel", for: "exports_excel", class: "role-btn px-6 py-2 rounded-xl md:text-xl border text-gray-600 peer-checked/excel:text-[#377DFF] border-gray-300 peer-checked/excel:border-[#377DFF] peer-checked/excel:font-semibold cursor-pointer transition duration-300" %>
+      <%= form_with url: admin_reports_export_users_path, method: :get, data: { turbo: false }, class: "flex flex-col justify-center" do |f| %>
+        <div class="flex flex-col gap-3 justify-between items-center md:text-right px-4">
+          <div class="md:w-[45%] flex justify-center gap-4 md:gap-2 pt-2 pb-4">
+            <%= f.radio_button :format, "csv", id: "exports_csv1", class: "peer/csv1 hidden", checked: true %>
+            <%= f.label :format, "CSV", for: "exports_csv1", class: "role-btn px-6 py-2 rounded-xl md:text-xl text-gray-600 peer-checked/csv1:text-[#377DFF] border border-gray-300 peer-checked/csv1:border-[#377DFF] peer-checked/csv1:font-semibold cursor-pointer transition duration-300" %>
+
+            <%= f.radio_button :format, "xlsx", id: "exports_excel1", class: "peer/excel1 hidden" %>
+            <%= f.label :format, "Excel", for: "exports_excel1", class: "role-btn px-6 py-2 rounded-xl md:text-xl border text-gray-600 peer-checked/excel1:text-[#377DFF] border-gray-300 peer-checked/excel1:border-[#377DFF] peer-checked/excel1:font-semibold cursor-pointer transition duration-300" %>
+          </div>
+          <%= f.submit "Download", class: "w-full bg-[#377DFF] hover:bg-[#2b66d2] text-white py-2 md:px-8 rounded-sm text-base md:text-xl font-medium hover:cursor-pointer" %>
+        </div>
+      <% end %>
+
     </div>
-    <%= f.submit "Download", class: "w-full bg-[#377DFF] hover:bg-[#2b66d2] text-white py-2 md:px-8 rounded-sm text-base md:text-xl font-medium hover:cursor-pointer" %>
-  </div>
-<% end %>
-    </div>
 
 
-    <div class="md:w-[20%] flex flex-col justify-center gap-8 bg-red py-4 text-center bg-white rounded-3xl">
+    <div class="md:w-[20%] flex flex-col justify-center gap-8 bg-red py-12 px-4 text-center bg-white rounded-3xl">
       <div class="flex justify-center">
         <div class="w-20 md:w-24 h-20 md:h-24 flex bg-cover bg-no-repeat justify-center items-center" style="background-image: url(<%= asset_path('bgcircle.svg') %>);">
           <%= image_tag "report-light.svg", class:"w-10 md:w-12" %>
@@ -39,22 +41,24 @@
         <h1 class="text-lg font-bold text-gray-600">All Users</h1>
         <p class="text-sm text-gray-500">Having more than 10 posts</p>
       </div>
-        <%= form_with(model: @user, url: user_registration_path, method: :post, data: { turbo: false }, html: { class: "flex flex-col justify-center" }) do |f| %>
-          <div class="md:flex flex-col justify-between items-center md:text-right px-4">
-            <div class="md:w-[45%] flex justify-center gap-4 md:gap-2 pt-2 pb-4">
-              <%= f.radio_button :role, "user", required: true, id: "role_user", class: "peer/user hidden", checked: true %>
-              <%= f.label :role, "User", for: "role_user", class: "role-btn px-6 py-2 rounded-xl md:text-xl border text-gray-600 peer-checked/user:text-[#377DFF] border-gray-300 peer-checked/user:border-[#377DFF] peer-checked/user:font-semibold cursor-pointer transition duration-300", data: { role: "user" } %>
+        
+        <%= form_with url: admin_reports_export_active_users_path, method: :get, data: { turbo: false }, class: "flex flex-col justify-center" do |f| %>
+        <div class="flex flex-col gap-3 justify-between items-center md:text-right px-4">
+          <div class="md:w-[45%] flex justify-center gap-4 md:gap-2 pt-2 pb-4">
+            <%= f.radio_button :format, "csv", id: "exports_csv2", class: "peer/csv2 hidden", checked: true %>
+            <%= f.label :format, "CSV", for: "exports_csv2", class: "role-btn px-6 py-2 rounded-xl md:text-xl text-gray-600 peer-checked/csv2:text-[#377DFF] border border-gray-300 peer-checked/csv2:border-[#377DFF] peer-checked/csv2:font-semibold cursor-pointer transition duration-300" %>
 
-              <%= f.radio_button :role, "admin", required: true, id: "role_admin", class: "peer/admin hidden" %>
-              <%= f.label :role, "Admin", for:"role_admin", class: "role-btn px-6 py-2 rounded-xl md:text-xl text-gray-600 peer-checked/admin:text-[#377DFF] border border-gray-300 peer-checked/admin:border-[#377DFF] peer-checked/admin:font-semibold cursor-pointer transition duration-300", data: { role: "admin" } %>
-            </div>
-            <%= f.submit "Download", class: "w-full bg-[#377DFF] hover:bg-[#2b66d2] text-white py-2 md:px-8 rounded-sm text-base md:text-xl font-medium hover:cursor-pointer" %>
+            <%= f.radio_button :format, "xlsx", id: "exports_excel2", class: "peer/excel2 hidden" %>
+            <%= f.label :format, "Excel", for: "exports_excel2", class: "role-btn px-6 py-2 rounded-xl md:text-xl border text-gray-600 peer-checked/excel2:text-[#377DFF] border-gray-300 peer-checked/excel2:border-[#377DFF] peer-checked/excel2:font-semibold cursor-pointer transition duration-300" %>
           </div>
-        <% end %>
+          <%= f.submit "Download", class: "w-full bg-[#377DFF] hover:bg-[#2b66d2] text-white py-2 md:px-8 rounded-sm text-base md:text-xl font-medium hover:cursor-pointer" %>
+        </div>
+      <% end %>
+
     </div>
 
 
-    <div class="md:w-[20%] flex flex-col justify-center gap-8 bg-red py-4 text-center bg-white rounded-3xl">
+    <div class="md:w-[20%] flex flex-col justify-center gap-8 bg-red py-12 px-4 text-center bg-white rounded-3xl">
       <div class="flex justify-center">
         <div class="w-20 md:w-24 h-20 md:h-24 flex bg-cover bg-no-repeat justify-center items-center" style="background-image: url(<%= asset_path('bgcircle.svg') %>);">
           <%= image_tag "report-light.svg", class:"w-10 md:w-12" %>
@@ -64,18 +68,20 @@
         <h1 class="text-lg font-bold text-gray-600">Postwise Report</h1>
         <p class="text-sm text-gray-500">Title/description, comments, likes</p>
       </div>
-        <%= form_with(model: @user, url: user_registration_path, method: :post, data: { turbo: false }, html: { class: "flex flex-col justify-center" }) do |f| %>
-          <div class="md:flex flex-col justify-between items-center md:text-right px-4">
-            <div class="md:w-[45%] flex justify-center gap-4 md:gap-2 pt-2 pb-4">
-              <%= f.radio_button :role, "user", required: true, id: "role_user", class: "peer/user hidden", checked: true %>
-              <%= f.label :role, "User", for: "role_user", class: "role-btn px-6 py-2 rounded-xl md:text-xl border text-gray-600 peer-checked/user:text-[#377DFF] border-gray-300 peer-checked/user:border-[#377DFF] peer-checked/user:font-semibold cursor-pointer transition duration-300", data: { role: "user" } %>
+        
+        <%= form_with url: admin_reports_export_posts_path, method: :get, data: { turbo: false }, class: "flex flex-col justify-center" do |f| %>
+        <div class="flex flex-col gap-3 justify-between items-center md:text-right px-4">
+          <div class="md:w-[45%] flex justify-center gap-4 md:gap-2 pt-2 pb-4">
+            <%= f.radio_button :format, "csv", id: "exports_csv3", class: "peer/csv3 hidden", checked: true %>
+            <%= f.label :format, "CSV", for: "exports_csv3", class: "role-btn px-6 py-2 rounded-xl md:text-xl text-gray-600 peer-checked/csv3:text-[#377DFF] border border-gray-300 peer-checked/csv3:border-[#377DFF] peer-checked/csv3:font-semibold cursor-pointer transition duration-300" %>
 
-              <%= f.radio_button :role, "admin", required: true, id: "role_admin", class: "peer/admin hidden" %>
-              <%= f.label :role, "Admin", for:"role_admin", class: "role-btn px-6 py-2 rounded-xl md:text-xl text-gray-600 peer-checked/admin:text-[#377DFF] border border-gray-300 peer-checked/admin:border-[#377DFF] peer-checked/admin:font-semibold cursor-pointer transition duration-300", data: { role: "admin" } %>
-            </div>
-            <%= f.submit "Download", class: "w-full bg-[#377DFF] hover:bg-[#2b66d2] text-white py-2 md:px-8 rounded-sm text-base md:text-xl font-medium hover:cursor-pointer" %>
+            <%= f.radio_button :format, "xlsx", id: "exports_excel3", class: "peer/excel3 hidden" %>
+            <%= f.label :format, "Excel", for: "exports_excel3", class: "role-btn px-6 py-2 rounded-xl md:text-xl border text-gray-600 peer-checked/excel3:text-[#377DFF] border-gray-300 peer-checked/excel3:border-[#377DFF] peer-checked/excel3:font-semibold cursor-pointer transition duration-300" %>
           </div>
-        <% end %>
+          <%= f.submit "Download", class: "w-full bg-[#377DFF] hover:bg-[#2b66d2] text-white py-2 md:px-8 rounded-sm text-base md:text-xl font-medium hover:cursor-pointer" %>
+        </div>
+      <% end %>
+
     </div>
     
     
