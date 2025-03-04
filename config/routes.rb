@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     patch "/access_users/:id", to: "access#edit"
     get "/add_user", to: "access#new"
     post "/add_user", to: "access#create"
+    get "/upload_user", to: "access#upload"
 
     get "/reports", to: "reports#index", as: "reports"
     get "/reports/export_users", to: "reports#export_users"

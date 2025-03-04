@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hello, <%= @user.first_name %>!</h1>
+    <p>
+      Welcome to My Awesome App. You can sign in using the link below:
+    </p>
+    <p>
+      <%= link_to 'Sign In', @login_url %>
+    </p>
+    <p>
+      Enjoy your stay!
+    </p>
+  </body>
+</html>

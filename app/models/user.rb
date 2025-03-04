@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
 
+  after_commit :send_welcome_email, on: :create
+
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :validatable, :trackable
   # def active_for_authentication?
@@ -32,5 +34,8 @@ class User < ApplicationRecord
     if avatar.attached? && !avatar.content_type.in?(%w[image/png image/jpg image/jpeg])
       errors.add(:avatar, "must be a PNG, JPG, or JPEG")
     end
+  end
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver_later
   end
 end
