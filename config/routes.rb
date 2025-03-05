@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     get "/posts/:id/edit", to: "posts#edit"
     patch "/posts/:id/edit", to: "posts#update", as: "edit_post"
 
+    get "/profile", to: "profile#index"
+
     get "/access_users", to: "access#index", as: "access"
     delete "/access_users/:id", to: "access#destroy"
     patch "/access_users/:id", to: "access#edit"

@@ -37,6 +37,8 @@ Rails.application.configure do
   # Make template changes take effect immediately.
   config.action_mailer.perform_caching = false
 
+  config.active_job.queue_adapter = :sidekiq
+
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
