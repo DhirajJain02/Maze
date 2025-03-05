@@ -13,7 +13,6 @@ class Admin::AccessController < AdminController
   end
 
   def upload
-    @user = User.all.order(created_at: :desc)
   end
 
   def import
