@@ -40,7 +40,7 @@ class User < ApplicationRecord
 
     admins=User.with_role(:admin)
     admins.each do |admin|
-      # AdminMailer.notify(admin, self).deliver_later
+      AdminMailer.notify(admin, self).deliver_later
     end
   end
 end
