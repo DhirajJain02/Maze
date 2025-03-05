@@ -37,6 +37,10 @@ class User < ApplicationRecord
   end
   def send_welcome_email
     UserMailer.welcome_email(self).deliver_later
-    AdminMailer.notify(self).deliver_later
+
+    admins=User.with_role(:admin)
+    admins.each do |admin|
+      AdminMailer.notify(admin, self).deliver_later
+    end
   end
 end
