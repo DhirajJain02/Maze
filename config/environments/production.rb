@@ -51,7 +51,7 @@ Rails.application.configure do
 
   config.active_storage.analyzers = []
   # Replace the default in-process and non-durable queuing backend for Active Job.
-  config.active_job.queue_adapter = :sidekiq
+  config.active_job.queue_adapter = :async
 
 
   # Ignore bad email addresses and do not raise email delivery errors.
