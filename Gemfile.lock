@@ -444,6 +444,7 @@ DEPENDENCIES
   cloudinary
   debug
   devise (~> 4.9)
+  dotenv
   image_processing (>= 1.2)
   importmap-rails
   jbuilder
