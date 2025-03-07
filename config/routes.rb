@@ -16,15 +16,6 @@ Rails.application.routes.draw do
 
   # admin routes
   namespace :admin do
-    get "/posts", to: "posts#index"
-    post "/posts", to: "posts#create"
-    get "/posts/:id", to: "posts#show"
-    delete "/posts/:id", to: "posts#destroy"
-    get "/posts/:id/edit", to: "posts#edit"
-    patch "/posts/:id/edit", to: "posts#update", as: "edit_post"
-
-    get "/profile", to: "profile#index"
-
     get "/access_users", to: "access#index", as: "access"
     delete "/access_users/:id", to: "access#destroy"
     patch "/access_users/:id", to: "access#edit"
@@ -39,7 +30,9 @@ Rails.application.routes.draw do
     get "/reports/export_posts", to: "reports#export_posts"
   end
   scope :admin do
-    post "/posts/:id", to: "comments#create", as: "comments"
+    # get "/posts", to: "posts#index"
+    # post "/posts", to: "posts#create"
+    # post "/posts/:id", to: "comments#create", as: "comments"
   end
 
   # posts routes
@@ -49,6 +42,10 @@ Rails.application.routes.draw do
   delete "/posts/:id", to: "posts#destroy"
   get "posts/:id/edit", to: "posts#edit"
   patch "/posts/:id/edit", to: "posts#update", as: "edit_post"
+
+  # profile routes
+  get "/profile", to: "profile#index"
+
 
   # comments routes
   post "/posts/:id", to: "comments#create"
