@@ -1,12 +1,18 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post, only: %i[show edit update destroy]
+  skip_before_action :verify_authenticity_token, only: [ :create, :show, :destroy ]
 
   def index
     @posts = Post.includes(:comments, :user, :likes).where("public = ? OR user_id = ?", true, current_user.id).order(created_at: :desc)
     if current_user.admin?
       @posts = Post.includes(:comments).order(created_at: :desc)# .page(params[:page]).per(10)
       @users = User.all.order(created_at: :desc)
+    end
+    respond_to do |format|
+      format.json { render json: { message: "Success", posts: @posts }, status: :ok }
+      format.html do
+      end
     end
   end
 
@@ -28,6 +34,11 @@ class PostsController < ApplicationController
     @comments = @post.comments.order(created_at: :desc)
     @comment = Comment.new   # This is for the form in the show
     @likes = @post.likes
+    respond_to do |format|
+      format.json { render json: { message: "Success", post: @post }, status: :ok }
+      format.html do
+      end
+    end
   end
 
   def edit
@@ -46,7 +57,12 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_path, notice: "Post was successfully destroyed."
+    respond_to do |format|
+      format.json { render json: { message: "Success", data: "post deleted" }, status: :ok }
+      format.html do
+        redirect_to posts_path, notice: "Post was successfully destroyed."
+      end
+    end
   end
 
   private
