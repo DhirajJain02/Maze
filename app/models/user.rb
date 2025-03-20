@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   rolify
-  has_one_attached :avatar
+  has_one_attached :avatar, dependent: :destroy
   validates :avatar, blob: { content_type: [ "image/png", "image/jpg", "image/jpeg" ] }
   validate :avatar_type
   validates :phone_number, presence: true, uniqueness: true, format: { with: /\A\d{10}\z/, message: "must be exactly 10 digits" }
@@ -14,12 +14,6 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :validatable, :trackable
-  # def active_for_authentication?
-  #   super && active?
-  # end
-  # def inactive_message
-  #   active? ? super : "Your account is not active. Please contact support."
-  # end
 
   def admin?
     has_role?(:admin)
