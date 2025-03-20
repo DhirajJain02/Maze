@@ -60,6 +60,7 @@ test:
   database: maze_test
 
 production:
+  prepared_statements: false
   <<: *default
 
 cable:
