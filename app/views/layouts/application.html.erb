@@ -88,6 +88,12 @@
                 </div>
               <% end %>
             <% end %>
+            <%= link_to dashboard_path do%>
+              <div class="flex items-center gap-4 py-2 px-3 rounded-xl cursor-pointer <%= active_class(dashboard_path) %>">
+                <%= image_tag active_image("activity", dashboard_path), class:"w-5 md:w-6" %>
+                <p class="block text-left text-lg md:text-xl font-medium">Activity</p>
+              </div>
+            <% end %>
             <%= link_to "/users/sign_out", data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
               <div class="flex items-center gap-4 py-2 px-3 rounded-xl text-red-400 hover:bg-gray-200 cursor-pointer"> 
                 <%= image_tag "logout.svg", class:"w-5 md:w-6"%>

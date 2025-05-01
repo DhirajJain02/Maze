@@ -2,24 +2,61 @@
   <div class="flex flex-col w-full gap-4 md:gap-6 overflow-y-auto max-h-[90vh] px-2 py-4 md:px-8 md:py-8 hide-scrollbar">
     <form action="<%= posts_path %>" method="post" class="flex flex-col items-center justify-center py-4 px-2 md:px-8 md:py-8 shadow-xl bg-white rounded-2xl">
       <div class="flex flex-col gap-y-5 w-full px-2">
+        <!-- CSRF Token -->
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
+        <!-- Description Field where the final suggestion will be loaded -->
         <div>
           <label for="description" class="block text-base font-medium text-gray-900">Description</label>
-          <div class="">
-            <textarea name="description" id="description" rows="3" minlength="10" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 md:text-lg" placeholder="Describe something...?" style="resize: none; max-height: 150px;"></textarea>
+          <div>
+        <textarea name="description" id="description" rows="5" minlength="10" required
+                  class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600"
+                  placeholder="Describe something...?"
+                  style="resize: none; max-height: 150px;"></textarea>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <label for="ai_input" class="block text-base font-medium text-gray-900">
+            AI Prompt
+          </label>
+          <div class="mt-1 flex flex-col md:flex-row items-stretch gap-2">
+            <input
+              type="text"
+              name="ai_input"
+              id="ai_input"
+              placeholder="Enter your prompt for suggestion…"
+              class="w-full rounded-md border border-gray-300 px-3 py-2 text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 shadow"
+              />
+            <button
+              type="button"
+              id="generate-suggestion"
+              class="w-full md:w-auto bg-indigo-600 hover:bg-indigo-800 text-white py-2 px-4 rounded-lg whitespace-nowrap"
+            >
+              Generate Suggestion
+            </button>
+          </div>
+          <!-- Loader (hidden until you click) -->
+          <div id="loader" class="mt-2 flex items-center gap-2 hidden">
+            <svg class="animate-spin h-5 w-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                 viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+            </svg>
+            <span class="text-sm text-gray-600">Generating...</span>
           </div>
         </div>
 
         <div>
           <span class="block text-base font-medium text-gray-900">Visibility</span>
           <div class="flex gap-4 pt-1 mt-2">
-            <label for="public" class="flex items-center gap-1 md:gap-2 cursor-pointer">
-              <input type="radio" name="public" value=true class="" checked>
+            <label class="flex items-center gap-1 md:gap-2 cursor-pointer">
+              <input type="radio" name="public" value=true checked>
               <span class="text-gray-900 text-sm md:text-base">Public</span>
             </label>
-
-            <label for="public" class="flex items-center gap-1 md:gap-2 cursor-pointer">
-              <input type="radio" name="public" value=false class="">
+            <label class="flex items-center gap-1 md:gap-2 cursor-pointer">
+              <input type="radio" name="public" value=false>
               <span class="text-gray-900 text-sm md:text-base">Private</span>
             </label>
           </div>
@@ -28,25 +65,26 @@
         <div class="flex flex-col md:flex-row justify-between gap-4">
           <div class="flex justify-around gap-4 md:gap-6">
             <div class="flex items-center gap-2 hover:cursor-pointer">
-              <img src="<%= asset_path('video.svg')%>" alt="">
+              <img src="<%= asset_path('video.svg') %>" alt="">
               <p class="text-xs md:text-lg">Live Video</p>
             </div>
             <div class="flex items-center gap-2 hover:cursor-pointer">
-              <img src="<%= asset_path('image.svg')%>" alt="">
+              <img src="<%= asset_path('image.svg') %>" alt="">
               <p class="text-xs md:text-lg">Photo/Video</p>
             </div>
             <div class="flex items-center gap-2 hover:cursor-pointer">
-              <img src="<%= asset_path('smile.svg')%>" alt="">
+              <img src="<%= asset_path('smile.svg') %>" alt="">
               <p class="text-xs md:text-lg">Feeling</p>
             </div>
           </div>
 
           <div>
-            <button class="w-full bg-indigo-600 hover:bg-indigo-800 text-white py-3 md:px-8 rounded-lg text-xl font-medium hover:cursor-pointer">Post</button>
+            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-800 text-white py-3 md:px-8 rounded-lg text-xl font-medium">Post</button>
           </div>
         </div>
       </div>
     </form>
+
 
     <% @posts.each do |post| %>
       <div class="flex flex-col items-center justify-center py-4 px-4 md:px-8 md:py-8 bg-white rounded-2xl shadow-xl">
@@ -281,3 +319,46 @@
     </div>
   <% end %>
 </main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const generateButton   = document.getElementById("generate-suggestion");
+        const aiInput          = document.getElementById("ai_input");
+        const descriptionInput = document.getElementById("description");
+        const loader           = document.getElementById("loader");
+        const csrfToken        = document.querySelector('meta[name="csrf-token"]').content;
+
+        generateButton.addEventListener("click", () => {
+            const prompt = aiInput.value.trim();
+            if (prompt.length < 5) {
+                return alert("Please provide at least 5 characters for the AI prompt.");
+            }
+
+            // show loader
+            loader.classList.remove("hidden");
+
+            fetch("/generate_text_suggestion", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-Token": csrfToken
+                },
+                body: JSON.stringify({ description: prompt })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    loader.classList.add("hidden");
+                    if (data.suggestion) {
+                        descriptionInput.value = data.suggestion;
+                    } else if (data.error) {
+                        alert("Error: " + data.error);
+                    }
+                })
+                .catch(err => {
+                    loader.classList.add("hidden");
+                    console.error("Fetch error:", err);
+                    alert("An unexpected error occurred. Check your console for details.");
+                });
+        });
+    });
+</script>

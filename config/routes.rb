@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     delete "/access_users/:id", to: "access#destroy"
     patch "/access_users/:id", to: "access#edit"
     get "/add_user", to: "access#new"
+
     post "/add_user", to: "access#create"
     get "/upload_user", to: "access#upload"
     post "/import", to: "access#import"
@@ -44,9 +45,16 @@ Rails.application.routes.draw do
   delete "/posts/:id", to: "posts#destroy"
   get "posts/:id/edit", to: "posts#edit"
   patch "/posts/:id/edit", to: "posts#update", as: "edit_post"
+  post '/generate_text_suggestion', to: 'posts#generate_text_suggestion'
+
+  # Dashboard routes for the current user (using PostsController)
+  get 'dashboard', to: 'posts#dashboard'
+  get 'stats', to: 'posts#stats'
 
   # profile routes
   get "/profile", to: "profile#index"
+  patch "/profile", to: "profile#update"
+  get "/profile/edit", to: "profile#edit"
 
 
   # comments routes

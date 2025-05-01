@@ -1,41 +1,87 @@
 <main class="flex flex-col gap-8 md:gap-4 w-full bg-gray-200 rounded-2xl px-4 py-8 md:px-8 md:py-8">
   <div class="flex justify-between items-center">
-    <p class="text-xl md:text-3xl text-center font-semibold text-gray-500">Profile</p>
+    <p class="text-xl md:text-3xl text-center font-semibold text-gray-500">Edit Profile</p>
   </div>
 
   <div class="flex flex-col justify-center gap-8">
     <div class="flex flex-col md:flex-row items-center w-full gap-8 py-12 px-4 bg-white rounded-3xl">
-      <div class="flex flex-col md:w-2/5">
-        <div class="flex justify-center">
-          <%= image_tag(@user.avatar.present? ? @user.avatar : 'avatar.png', class: "w-34 md:w-1/2") %>
-        </div>
-        <p class="text-center md:text-xl"><%= @user.admin? ? "Admin" : "User" %></p> 
-      </div>
-      <div class="flex flex-col md:text-left w-full md:w-[50%] gap-4 md:gap-20">
-        <div class="flex flex-col pl-1 md:pl-2 gap-2 md:gap-3">
-          <div class="flex items-center">
-            <p class="w-2/5 font-bold text-sm md:text-lg">Name: </p>
-            <h1 class="text-lg md:text-3xl w-3/5 pl-2 py-1 md:py-2 rounded-md font-bold text-gray-600 bg-[#EAF4FF] border-indigo-600"><%= @user.first_name %> <%= @user.last_name %></h1>
-          </div>
-          <div class="flex items-center">
-            <p class="w-2/5 font-bold text-sm md:text-lg">Email: </p>
-            <h1 class="text-base md:text-xl w-3/5 pl-2 py-1 md:py-2 rounded-md text-gray-500 bg-[#EAF4FF] border-indigo-600"><%= @user.email %></h1>
-          </div>
-          <div class="flex items-center">
-            <p class="w-2/5 font-bold text-sm md:text-lg  ">Phone Number: </p>
-            <h1 class="text-base md:text-xl w-3/5 pl-2 py-1 md:py-2 rounded-md text-gray-500 bg-[#EAF4FF] border-indigo-600"><%= @user.phone_number %></h1>
-          </div>
-        </div>
-        <div class="flex flex-col md:items-end gap-3 md:text-right">
-          <button class="md:w-[50%] bg-[#377DFF] hover:bg-[#2b66d2] text-white py-2 rounded-sm text-base md:text-2xl font-medium hover:cursor-pointer">
-            Edit
-          </button>
-        </div>
-      </div>
 
+      <%= form_with model: @user, url: profile_path, method: :patch,
+                    local: true, multipart: true, class: "flex flex-col md:flex-row items-center w-full gap-8" do |f| %>
+
+        <!-- LEFT: Avatar & Role -->
+        <div class="flex flex-col md:w-2/5">
+          <div class="flex justify-center">
+            <img id="avatar-preview"
+                 src="<%= @user.avatar.attached? ? url_for(@user.avatar) : asset_path('avatar.png') %>"
+                 class="w-34 md:w-1/2 rounded-full" />
+          </div>
+          <p class="text-center md:text-xl mt-4">
+            <%= @user.admin? ? "Admin" : "User" %>
+          </p>
+          <div class="flex justify-center mt-2 pt-2">
+          <!-- hidden file field + trigger button -->
+          <%= f.file_field :avatar, accept: 'image/*', class: "hidden", id: "avatar-input" %>
+          <button type="button"
+                  id="change-avatar"
+                  class="mt-4 md:w-[50%] bg-[#377DFF] hover:bg-[#2b66d2] text-white py-2 px-2 rounded-sm text-base md:text-2xl font-medium hover:cursor-pointer">
+            Change Photo
+          </button>
+          </div>
+        </div>
+
+        <!-- RIGHT: Fields -->
+        <div class="flex flex-col md:text-left w-full md:w-[50%] gap-4 md:gap-15">
+          <!-- Name -->
+          <div class="flex items-center">
+            <p class="w-2/5 font-bold text-sm md:text-3xl">First Name :</p>
+            <%= f.text_field :first_name,
+                             class: "text-lg md:text-3xl w-3/5 pl-2 py-1 md:py-2 rounded-md font-bold text-gray-600 bg-[#EAF4FF] border-indigo-600" %>
+          </div>
+
+          <div class="flex items-center">
+            <p class="w-2/5 font-bold text-sm md:text-3xl">Last Name :</p>
+            <%= f.text_field :last_name,
+                             class: "text-lg md:text-3xl w-3/5 pl-2 py-1 md:py-2 rounded-md font-bold text-gray-600 bg-[#EAF4FF] border-indigo-600" %>
+          </div>
+
+          <!-- Email (disabled) -->
+          <div class="flex items-center">
+            <p class="w-2/5 font-bold text-sm md:text-3xl">Email :</p>
+            <%= f.email_field :email,
+                              disabled: true,
+                              class: "text-base md:text-xl w-3/5 pl-2 py-1 md:py-2 rounded-md text-gray-500 bg-[#EAF4FF] border-indigo-600" %>
+          </div>
+
+          <!-- Phone -->
+          <div class="flex items-center">
+            <p class="w-2/5 font-bold text-sm md:text-3xl">Phone Number :</p>
+            <%= f.telephone_field :phone_number, required: true, maxlength: 10,
+                                  class: "text-base md:text-xl w-3/5 pl-2 py-1 md:py-2 rounded-md text-gray-500 bg-[#EAF4FF] border-indigo-600" %>
+          </div>
+
+          <!-- Submit -->
+          <div class="flex flex-col md:items-center gap-3 md:text-right">
+            <%= f.submit "Save Changes",
+                         class: "md:w-[50%] bg-[#377DFF] hover:bg-[#2b66d2] text-white py-2 rounded-sm text-base md:text-2xl font-medium hover:cursor-pointer" %>
+          </div>
+        </div>
+      <% end %>
 
     </div>
-
-    
   </div>
 </main>
+
+<script>
+    // preview the chosen avatar file
+    document.getElementById('avatar-input').addEventListener('change', function(e) {
+        const [file] = e.target.files;
+        if (!file) return;
+        document.getElementById('avatar-preview').src = URL.createObjectURL(file);
+    });
+
+    // open file picker when button clicked
+    document.getElementById('change-avatar').addEventListener('click', function() {
+        document.getElementById('avatar-input').click();
+    });
+</script>

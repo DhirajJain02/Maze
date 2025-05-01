@@ -1,0 +1,180 @@
+<h1 class="text-2xl font-bold mb-6">User Dashboard</h1>
+
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+  <div class="bg-gray-100 p-6 rounded-xl shadow-md hover:scale-105 transition-all">
+    <h3 class="text-lg font-semibold text-gray-800">Posts</h3>
+    <p class="text-gray-600">Total Posts: <span class="font-semibold" id="postsCount"></span></p>
+  </div>
+  <div class="bg-gray-100 p-6 rounded-xl shadow-md hover:scale-105 transition-all">
+    <h3 class="text-lg font-semibold text-gray-800">Likes Received</h3>
+    <p class="text-gray-600">Likes Received: <span class="font-semibold" id="likesReceived"></span></p>
+  </div>
+  <div class="bg-gray-100 p-6 rounded-xl shadow-md hover:scale-105 transition-all">
+    <h3 class="text-lg font-semibold text-gray-800">Comments Received</h3>
+    <p class="text-gray-600">Comments Received: <span class="font-semibold" id="commentsReceived"></span></p>
+  </div>
+  <div class="bg-gray-100 p-6 rounded-xl shadow-md hover:scale-105 transition-all">
+    <h3 class="text-lg font-semibold text-gray-800">Likes Given</h3>
+    <p class="text-gray-600">Likes Given: <span class="font-semibold" id="likesGiven"></span></p>
+  </div>
+  <div class="bg-gray-100 p-6 rounded-xl shadow-md hover:scale-105 transition-all">
+    <h3 class="text-lg font-semibold text-gray-800">Comments Given</h3>
+    <p class="text-gray-600">Comments Given: <span class="font-semibold" id="commentsGiven"></span></p>
+  </div>
+</div>
+
+<div class="flex flex-col gap-6">
+
+  <!-- Engagement Overview Chart -->
+  <div class="mb-10 bg-gray-100 p-6 rounded-xl shadow-sm mt-6" style="margin-top: 24px;">
+    <h2 class="text-xl font-semibold mb-4">Engagement Overview</h2>
+    <div class="w-full h-[300px] sm:h-[400px] md:h-[500px] rounded-lg border-2 border-gray-300 bg-white" style="margin-top: 24px;">
+      <canvas id="engagementChart" class="w-full h-full" style="padding: 24px"></canvas>
+    </div>
+  </div>
+
+  <!-- Posts Trend Chart -->
+  <div class="mb-10 bg-gray-100 p-6 rounded-xl shadow-sm mt-6">
+    <h2 class="text-xl font-semibold mb-4">Posts Trend Over Time</h2>
+    <div class="w-full h-[300px] sm:h-[400px] md:h-[500px] rounded-lg border-2 border-gray-300 p-4 bg-white" style="margin-top: 24px;">
+      <canvas id="postsTrendChart" class="w-full h-full" style="padding: 24px"></canvas>
+    </div>
+  </div>
+
+  <!-- Likes Trend Chart -->
+  <div class="mb-10 bg-gray-100 p-6 rounded-xl shadow-sm mt-6">
+    <h2 class="text-xl font-semibold mb-4">Likes Trend Over Time</h2>
+    <div class="w-full h-[300px] sm:h-[400px] md:h-[500px] rounded-lg border-2 border-gray-300 p-4 bg-white" style="margin-top: 24px;">
+      <canvas id="likesTrendChart" class="w-full h-full" style="padding: 24px"></canvas>
+    </div>
+  </div>
+
+  <!-- Comments Trend Chart -->
+  <div class="mb-10 bg-gray-100 p-6 rounded-xl shadow-sm mt-6">
+    <h2 class="text-xl font-semibold mb-4">Comments Trend Over Time</h2>
+    <div class="w-full h-[300px] sm:h-[400px] md:h-[500px] rounded-lg border-2 border-gray-300 p-4 bg-white" style="margin-top: 24px;">
+      <canvas id="commentsTrendChart" class="w-full h-full" style="padding: 24px"></canvas>
+    </div>
+  </div>
+  <br>
+</div>
+
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener("turbo:load", function () {
+        fetch('/stats')
+            .then(response => response.json())
+            .then(data => {
+                const months = [
+                    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                ];
+
+                function mapMonthlyData(source) {
+                    const monthlyTotals = {};
+                    Object.entries(source).forEach(([key, value]) => {
+                        const month = key.split(" ")[0];
+                        monthlyTotals[month] = (monthlyTotals[month] || 0) + value;
+                    });
+                    return months.map(month => monthlyTotals[month] || 0);
+                }
+
+                const postsPerMonth = mapMonthlyData(data.posts_trend);
+                const likesPerMonth = mapMonthlyData(data.likes_trend);
+                const commentsPerMonth = mapMonthlyData(data.comments_trend);
+
+                const commonOptions = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 1500,
+                        easing: 'easeInOutQuart'
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                };
+
+                new Chart(document.getElementById('engagementChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['Posts', 'Likes Received', 'Comments Received', 'Likes Given', 'Comments Given'],
+                        datasets: [{
+                            label: 'Count',
+                            data: [
+                                data.posts_count,
+                                data.total_likes_received,
+                                data.total_comments_received,
+                                data.total_likes_given,
+                                data.total_comments_given
+                            ],
+                            backgroundColor: [
+                                'rgba(59, 130, 246, 0.7)',
+                                'rgba(239, 68, 68, 0.7)',
+                                'rgba(234, 179, 8, 0.7)',
+                                'rgba(16, 185, 129, 0.7)',
+                                'rgba(139, 92, 246, 0.7)'
+                            ]
+                        }]
+                    },
+                    options: commonOptions
+                });
+
+                new Chart(document.getElementById('postsTrendChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: months,
+                        datasets: [{
+                            label: 'Posts',
+                            data: postsPerMonth,
+                            backgroundColor: 'rgba(59, 130, 246, 0.7)'
+                        }]
+                    },
+                    options: commonOptions
+                });
+
+                new Chart(document.getElementById('likesTrendChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: months,
+                        datasets: [{
+                            label: 'Likes',
+                            data: likesPerMonth,
+                            backgroundColor: 'rgba(255, 159, 64, 0.7)'
+                        }]
+                    },
+                    options: commonOptions
+                });
+
+                new Chart(document.getElementById('commentsTrendChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: months,
+                        datasets: [{
+                            label: 'Comments',
+                            data: commentsPerMonth,
+                            backgroundColor: 'rgba(153, 102, 255, 0.7)'
+                        }]
+                    },
+                    options: commonOptions
+                });
+
+                // Set stats
+                document.getElementById('postsCount').textContent = data.posts_count;
+                document.getElementById('likesReceived').textContent = data.total_likes_received;
+                document.getElementById('commentsReceived').textContent = data.total_comments_received;
+                document.getElementById('likesGiven').textContent = data.total_likes_given;
+                document.getElementById('commentsGiven').textContent = data.total_comments_given;
+            })
+            .catch(error => console.error('Error loading stats:', error));
+    });
+</script>
