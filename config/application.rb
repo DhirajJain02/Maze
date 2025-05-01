@@ -16,14 +16,14 @@ module Maze
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
     config.active_storage.analyzers = []
-    config.active_job.queue_adapter = :sidekiq
-    Sidekiq.configure_server do |config|
-      config.redis = { url: ENV["REDIS_URL"] || "redis://your-redis-server-ip:6379/0" }
-    end
-
-    Sidekiq.configure_client do |config|
-      config.redis = { url: ENV["REDIS_URL"] || "redis://your-redis-server-ip:6379/0" }
-    end
+    config.active_job.queue_adapter = :async
+    # Sidekiq.configure_server do |config|
+    #   config.redis = { url: ENV["REDIS_URL"] || "redis://your-redis-server-ip:6379/0" }
+    # end
+    #
+    # Sidekiq.configure_client do |config|
+    #   config.redis = { url: ENV["REDIS_URL"] || "redis://your-redis-server-ip:6379/0" }
+    # end
 
 
     # Configuration for the application, engines, and railties goes here.

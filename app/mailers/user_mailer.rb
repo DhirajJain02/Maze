@@ -4,7 +4,7 @@ class UserMailer < ApplicationMailer
   #
   #   en.user_mailer.welcome_email.subject
   #
-  default from: "akshat.jain@jarvis.consulting"
+  default from: "dhiraj.lodha@jarvis.consulting"
   layout "mailer"
 
   def welcome_email(user)

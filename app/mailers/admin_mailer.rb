@@ -1,5 +1,5 @@
 class AdminMailer < ApplicationMailer
-  default from: "akshat.jain@jarvis.consulting"
+  default from: "dhiraj.lodha@jarvis.consulting"
   layout "mailer"
 
   def notify(admin, new_user)

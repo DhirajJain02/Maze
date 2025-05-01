@@ -37,7 +37,7 @@ Rails.application.configure do
   # Make template changes take effect immediately.
   config.action_mailer.perform_caching = false
 
-  config.active_job.queue_adapter = :sidekiq
+  config.active_job.queue_adapter = :async
   config.action_mailer.perform_deliveries = true
 
   config.action_mailer.raise_delivery_errors = true
@@ -83,10 +83,14 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address:              "smtp.sendgrid.net",
     port:                 587,
-    domain:               "akshat.jain@jarvis.consulting",  # replace with your domain
+    domain:               "dhiraj.lodha@jarvis.consulting",  # replace with your domain
     user_name:            "apikey",          # literal string "apikey"
     password:             ENV["SENDGRID_API_KEY"],  # store your SendGrid API key in credentials
     authentication:       :plain,
     enable_starttls_auto: true
   }
+
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
 end

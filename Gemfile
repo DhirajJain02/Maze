@@ -79,3 +79,5 @@ gem "caxlsx" # Fork of axlsx, required for Rails 8 compatibility
 gem "sidekiq"
 gem "roo"
 gem "dotenv"
+gem "httparty"
+gem "groupdate"
