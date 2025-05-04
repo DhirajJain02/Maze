@@ -27,7 +27,7 @@ class PostsController < ApplicationController
       user_id: @user.id,
       description: description,
       public: params[:public],
-      suggested_text: suggestion
+      suggestion: suggestion
     )
     if @post.save
       redirect_to posts_path, notice: "Post was successfully created."
